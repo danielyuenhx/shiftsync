@@ -27,7 +27,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
         style={{ background: colorBgContainer }}
       >
         <div />
-        <img src={logo} className="tw-px-6 tw-py-4" />
+        <img src={logo} className="tw-px-6 tw-py-8" />
         <Menu mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key="1" icon={<CalendarOutlined />}>
             <Link to="/">Schedule</Link>
