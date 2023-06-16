@@ -1,4 +1,4 @@
-export const profile = [
+export const data = [
   {
     name: "John Doess",
     role: ["Cashier", "Barista", "Waiter"],

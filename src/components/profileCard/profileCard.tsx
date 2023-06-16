@@ -25,7 +25,7 @@ const ProfileCard = (props: ProfileProps) => {
     <Card
       hoverable
       bodyStyle={{ padding: '24px' }}
-      style={{ minWidth: '375px', height: 'auto' }}
+      style={{ height: 'auto' }}
     >
       <Row>
         <Col span={10} className="tw-flex tw-flex-col tw-justify-center tw-items-center">

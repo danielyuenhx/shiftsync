@@ -39,7 +39,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
           mode='inline'
           defaultSelectedKeys={['1']}
           theme='dark'
-          style={{ padding: '0.5em' }}
+          style={{ padding: '0.5em', fontSize: '1.1em' }}
         >
           <Menu.Item key='1' icon={<CalendarOutlined />}>
             <Link to='/'>Schedule</Link>
