@@ -56,7 +56,7 @@ const AddShiftCard = () => {
       className="tw-w-auto"
       title={
         <Typography.Title level={5} className="tw-mt-2">
-          Adding Shifts
+          Add Shifts
         </Typography.Title>
       }
     >

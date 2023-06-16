@@ -25,7 +25,7 @@ const AddEmployeeCard = () => {
   return (
     <Card bordered={false} className="tw-w-auto">
       <Typography.Title level={5} className="tw-mt-2">
-        Adding Employees
+        Add Employees
       </Typography.Title>
 
       <Form

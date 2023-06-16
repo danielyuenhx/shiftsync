@@ -1,4 +1,5 @@
-import { Card, Tag } from 'antd';
+import { Avatar, Card, Col, Row, Tag } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 interface ProfileProps {
   profile: {
@@ -23,27 +24,41 @@ const ProfileCard = (props: ProfileProps) => {
   return (
     <Card
       hoverable
-      bodyStyle={{ padding: '16px' }}
-      style={{ minWidth: '210px', height: 'auto' }}
+      bodyStyle={{ padding: '24px' }}
+      style={{ minWidth: '375px', height: 'auto' }}
     >
-      <div style={{ textAlign: 'center' }}>
-        <h3 style={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-          {props?.profile?.name}
-        </h3>
-        <p style={{ fontSize: '14px', color: '#888888', marginBottom: '8px' }}>
-          Hourly Rate: ${props?.profile?.hourlyRate}
-        </p>
-        <p style={{ fontSize: '14px', color: '#888888', marginBottom: '16px' }}>
-          {props?.profile?.number}
-        </p>
-        <div>
-          {props?.profile?.role.map((role) => (
-            <Tag key={role} color={roleColour(role)}>
-              {role}
-            </Tag>
-          ))}
-        </div>
-      </div>
+      <Row>
+        <Col span={10} className="tw-flex tw-flex-col tw-justify-center tw-items-center">
+          <Avatar size={48} icon={<UserOutlined />} className="tw-mb-3" />
+          <h3 style={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
+            {props?.profile?.name}
+          </h3>
+          <p
+            style={{
+              fontSize: '14px',
+              color: '#888888',
+            }}
+          >
+            {props?.profile?.number}
+          </p>
+        </Col>
+        <Col span={14} className="tw-p-3">
+          <p className="tw-font-medium">Hourly rate:</p>
+          <p
+            style={{ fontSize: '14px', color: '#888888', marginBottom: '8px' }}
+          >
+            {props?.profile?.hourlyRate}$/hr
+          </p>
+          <p className="tw-font-medium">Roles:</p>
+          <div>
+            {props?.profile?.role.map((role) => (
+              <Tag key={role} color={roleColour(role)}>
+                {role}
+              </Tag>
+            ))}
+          </div>
+        </Col>
+      </Row>
     </Card>
   );
 };

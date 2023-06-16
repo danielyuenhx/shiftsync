@@ -49,7 +49,7 @@ const AddRoleCard = () => {
       className="tw-w-auto"
       title={
         <Typography.Title level={5} className="tw-mt-2">
-          Adding Roles
+          Add Roles
         </Typography.Title>
       }
     >
