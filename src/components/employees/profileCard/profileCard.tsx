@@ -58,7 +58,7 @@ const ProfileCard = (props: ProfileProps) => {
           <p className='tw-font-medium'>Roles:</p>
           <div>
             {props?.profile?.role.map((role) => (
-              <Tag key={role} color={roleColour(role)}>
+              <Tag key={role} color={roleColour(role)} className="tw-mb-1">
                 {role}
               </Tag>
             ))}

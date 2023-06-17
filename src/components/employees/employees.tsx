@@ -19,7 +19,7 @@ const Employees = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 3;
 
   const handlePageChange = (page: any) => {
     setCurrentPage(page);
