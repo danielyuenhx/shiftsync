@@ -7,7 +7,8 @@ import {
   Card,
   Button,
   Modal,
-  Divider
+  Avatar,
+  Row,
 } from 'antd';
 import {
   InfoCircleOutlined,
@@ -15,6 +16,8 @@ import {
   UserDeleteOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
+import { createAvatar } from '@dicebear/core';
+import { micah, personas, thumbs } from '@dicebear/collection';
 
 interface ProfileProps {
   profile: {
@@ -87,11 +90,26 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
 
   return (
     <Card
+    size='default'
       title={
         props?.profile && (
-          <Typography.Title className='tw-mt-4' level={3}>
-            {props?.profile?.name}
-          </Typography.Title>
+          <Row className='tw-items-center tw-gap-4 !tw-min-h-[75px]'>
+            <Avatar
+              size={36}
+              icon={
+                <img
+                  src={`data:image/svg+xml;utf8,${encodeURIComponent(
+                    createAvatar(micah, {
+                      seed: props?.profile?.name,
+                    }).toString()
+                  )}`}
+                />
+              }
+            />
+            <Typography.Title level={3} className="!tw-m-0">
+              {props?.profile?.name}
+            </Typography.Title>
+          </Row>
         )
       }
       extra={
@@ -130,10 +148,9 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
               />
             </div>
             <div className='tw-flex tw-flex-col tw-mb-2'>
-              
               <Typography.Title level={5}>Hourly rate (RM)</Typography.Title>
               {!edit ? (
-                <p className="tw-text-[16px]">{props?.profile?.hourlyRate}</p>
+                <p className='tw-text-[16px]'>{props?.profile?.hourlyRate}</p>
               ) : (
                 <Input
                   id='rate'
@@ -148,7 +165,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Phone Number</Typography.Title>
               {!edit ? (
-                <p className="tw-text-[16px]">{props?.profile?.number}</p>
+                <p className='tw-text-[16px]'>{props?.profile?.number}</p>
               ) : (
                 <Input
                   id='phoneNumber'
@@ -163,7 +180,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Roles</Typography.Title>
               {!edit ? (
-                <p className="tw-text-[16px]">{props?.profile?.role}</p>
+                <p className='tw-text-[16px]'>{props?.profile?.role}</p>
               ) : (
                 <Select
                   id='values'

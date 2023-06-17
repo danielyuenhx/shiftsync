@@ -76,7 +76,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
       </Sider>
       <Layout className='tw-h-full tw-min-h-[100vh]'>
         <Content className='tw-my-6 tw-mx-6 tw-p-3 tw-min-h-[90%] tw-rounded-4 tw-w-[97%]'>
-          <Typography.Title level={2} className="!tw-font-[700]">
+          <Typography.Title level={2} className="!tw-font-[700] tw-pb-2">
             {location.pathname === '/'
               ? 'Schedule'
               : location.pathname.charAt(1).toUpperCase() +

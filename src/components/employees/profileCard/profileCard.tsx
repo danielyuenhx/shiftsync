@@ -1,5 +1,7 @@
 import { Avatar, Card, Col, Row, Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { createAvatar } from '@dicebear/core';
+import { micah, personas, thumbs } from '@dicebear/collection';
 
 interface ProfileProps {
   profile: {
@@ -25,10 +27,22 @@ const ProfileCard = (props: ProfileProps) => {
     <Card hoverable bodyStyle={{ padding: '24px' }} className='tw-h-auto'>
       <Row>
         <Col
-          span={10}
+          span={8}
           className='tw-flex tw-flex-col tw-justify-center tw-items-center'
         >
-          <Avatar size={48} icon={<UserOutlined />} className='tw-mb-3' />
+          <Avatar
+            size={64}
+            icon={
+              <img
+                src={`data:image/svg+xml;utf8,${encodeURIComponent(
+                  createAvatar(micah, {
+                    seed: props?.profile?.name,
+                  }).toString()
+                )}`}
+              />
+            }
+            className='tw-mb-3'
+          />
           <h3 className='tw-text-[16px] tw-text-black tw-font-bold'>
             {props?.profile?.name}
           </h3>

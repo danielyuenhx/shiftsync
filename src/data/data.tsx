@@ -82,7 +82,7 @@ export const data = [
     ],
   },
   {
-    name: "John Doe",
+    name: "John Do",
     role: ["Cashier", "Barista", "Waiter"],
     hourlyRate: 60,
     number: "012-0122342",
@@ -114,7 +114,7 @@ export const data = [
     ],
   },
   {
-    name: "John Doe",
+    name: "John D",
     role: ["Cashier"],
     hourlyRate: 50,
     number: "012-0122342",
@@ -164,7 +164,7 @@ export const data = [
     ],
   },
   {
-    name: "John Doe",
+    name: "Joh Doe",
     role: ["Cashier", "Barista", "Waiter"],
     hourlyRate: 60,
     number: "012-0122342",
@@ -196,7 +196,7 @@ export const data = [
     ],
   },
   {
-    name: "John Doe",
+    name: "Jos Doe",
     role: ["Cashier"],
     hourlyRate: 50,
     number: "012-0122342",
