@@ -86,8 +86,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
         props?.profile && (
           <Typography.Title
             className='tw-mt-4'
-            level={2}
-            style={{ fontSize: '24px' }}
+            level={3}
           >
             {props?.profile?.name}
           </Typography.Title>
@@ -98,12 +97,11 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
           <div className='tw-w-56 tw-flex tw-justify-between tw-flex-row'>
             <Button
               onClick={editHandler}
-              block
-              style={{ width: '100px', color: 'black' }}
+              className="tw-w-[100px] tw-text-black"
             >
               {edit ? 'Save' : 'Edit'}
             </Button>
-            <Button onClick={deleteHandler} danger style={{ width: '100px' }}>
+            <Button onClick={deleteHandler} danger className="tw-w-[100px]">
               Delete
             </Button>
           </div>
@@ -128,7 +126,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
                 value={props?.profile?.hourlyRate}
                 onChange={handleRateChange}
                 disabled={!edit}
-                style={{ height: '35px' }}
+                className='tw-h-[35px]'
               />
             </div>
             <div className='tw-flex tw-gap-2 tw-flex-col'>
@@ -139,7 +137,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
                 value={props?.profile?.number}
                 onChange={handlePhoneNumberChange}
                 disabled={!edit}
-                style={{ height: '35px' }}
+                className='tw-h-[35px]'
               />
             </div>
             <div className='tw-flex tw-gap-2 tw-flex-col'>
@@ -150,7 +148,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
                 placeholder='Select roles'
                 value={props?.profile?.role}
                 onChange={handleDropdownChange}
-                style={{ width: '100%', height: '35px' }}
+                className='tw-h-[35px] tw-w-full'
                 disabled={!edit}
               >
                 <Select.Option value='Value 1'>Value 1</Select.Option>

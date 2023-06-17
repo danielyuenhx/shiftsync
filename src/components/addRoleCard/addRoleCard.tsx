@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, Typography, Tag, Button, Card, Modal } from "antd";
+import { Input, Typography, Tag, Button, Card, Modal, Row } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const roles = ["Cashier", "Waiter", "Barista"];
@@ -53,7 +53,7 @@ const AddRoleCard = () => {
         </Typography.Title>
       }
     >
-      <div className="tw-flex tw-flex-row tw-w-64 tw-mb-4">
+      <Row className="tw-mb-4">
         {roles.map((role: string) => (
           <div
             key={role}
@@ -70,7 +70,7 @@ const AddRoleCard = () => {
             </Tag>
           </div>
         ))}
-      </div>
+      </Row>
 
       <Input
         id="roles"
@@ -79,9 +79,9 @@ const AddRoleCard = () => {
         style={{ height: "35px" }}
       />
 
-      <div className="tw-flex tw-justify-end tw-mt-4">
+      <Row className="tw-justify-end tw-mt-4">
         <Button>Save</Button>
-      </div>
+      </Row>
 
       <Modal
         title="Confirm Deletion"
