@@ -4,9 +4,12 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { createRoles, roleDetails } from "../../../redux/slices/roleSlice";
 
-const roles = ["Cashier", "Waiter", "Barista"];
+const roles = ['Cashier', 'Waiter', 'Barista'];
 
 const AddRoleCard = () => {
+  // const roles = useAppSelector(roleDetails);
+  // console.log(roles);
+
   const roleColour = (role: string) => {
     if (role === "Cashier") {
       return "gold";
@@ -37,13 +40,13 @@ const AddRoleCard = () => {
 
     // Close the modal and reset deleteRole state
     setModalVisible(false);
-    setDeleteRole("");
+    setDeleteRole('');
   };
 
   const handleCancel = () => {
     // Close the modal and reset deleteRole state
     setModalVisible(false);
-    setDeleteRole("");
+    setDeleteRole('');
   };
 
   const addNewRole = (e: any) => {
@@ -59,7 +62,7 @@ const AddRoleCard = () => {
       bordered={false}
       className="tw-w-[40%]"
       title={
-        <Typography.Title level={5} className="tw-mt-2">
+        <Typography.Title level={5} className='tw-mt-2'>
           Add Roles
         </Typography.Title>
       }
@@ -86,22 +89,22 @@ const AddRoleCard = () => {
       </Row>
 
       <Input
-        id="roles"
-        placeholder="Add Roles"
+        id='roles'
+        placeholder='Add Roles'
         onChange={addNewRole}
-        style={{ height: "35px" }}
+        style={{ height: '35px' }}
       />
 
       <Row className="tw-justify-end tw-mt-4">
-        <Button onClick={saveHandler}>Save</Button>
+        <Button onClick={saveHandler}>Add</Button>
       </Row>
 
       <Modal
-        title="Confirm Deletion"
+        title='Confirm Deletion'
         open={modalVisible}
         onOk={(e) => handleDeleteRole(e)}
         onCancel={handleCancel}
-        okText="Delete"
+        okText='Delete'
         okButtonProps={{ danger: true }}
       >
         <p>Are you sure you want to delete the role?</p>
