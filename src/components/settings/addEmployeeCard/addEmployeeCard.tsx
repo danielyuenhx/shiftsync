@@ -1,20 +1,48 @@
-import  { useState } from "react";
-import { Input, Typography, Button, Card, Select, Form, Modal } from "antd";
+import { useState } from 'react';
+import {
+  Input,
+  Typography,
+  Button,
+  Card,
+  Select,
+  Form,
+  Modal,
+  notification,
+} from 'antd';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
+import { roleDetails } from '../../../redux/slices/roleSlice';
+import { createEmployees } from '../../../redux/slices/employeeSlice';
 
 const AddEmployeeCard = () => {
+  const roles = useAppSelector(roleDetails);
+  console.log(roles);
+  const dispatch = useAppDispatch();
+
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [formValues, setFormValues] = useState<any>({});
 
   const onFinish = (values: any) => {
-    console.log(values);
     setFormValues(values);
-    setConfirmModalVisible(true);
+
+    const roleIds = values.role.map((roleName: string) => {
+      return roles.find((role: any) => role.name === roleName).id;
+    });
+
+    const mappedEmployee = {
+      name: values.name,
+      phoneNumber: values.phoneNumber,
+      hourlyRate: values.hourlyRate,
+      roleIds,
+    };
+    createEmployees(dispatch, mappedEmployee);
+    openSuccessNotification();
+
+    setFormValues('');
   };
 
   const handleConfirmModalOk = () => {
-    console.log("Confirmed");
     setConfirmModalVisible(false);
-    setFormValues("");
+    setFormValues('');
     // Perform save operation or API call here
   };
 
@@ -22,100 +50,112 @@ const AddEmployeeCard = () => {
     setConfirmModalVisible(false);
   };
 
+  const [api, contextHolder] = notification.useNotification();
+
+  const openSuccessNotification = () => {
+    api.success({
+      message: 'Successfully added Employee!',
+      description:
+        'Employee added to the database. Check it out in the Employees tab.',
+      placement: 'bottomRight',
+    });
+  };
+
   return (
-    <Card bordered={false} className="tw-w-auto">
-      <Typography.Title level={5} className="tw-mt-2">
+    <Card bordered={false} className='tw-w-auto'>
+      {contextHolder}
+      <Typography.Title level={5} className='tw-mt-2'>
         Add Employees
       </Typography.Title>
 
       <Form
-        name="addEmployeeForm"
+        name='addEmployeeForm'
         onFinish={onFinish}
-        layout="vertical"
-        className="tw-mt-4"
+        layout='vertical'
+        className='tw-mt-4'
       >
         <Form.Item
-          label="Name"
-          name="name"
+          label='Name'
+          name='name'
           rules={[
             {
               required: true,
-              message: "Please enter the employee name",
+              message: 'Please enter employee name',
             },
           ]}
         >
-          <Input placeholder="Enter name" />
+          <Input placeholder='Enter name' />
         </Form.Item>
 
         <Form.Item
-          label="Rate"
-          name="rate"
+          label='Rate'
+          name='hourlyRate'
           rules={[
             {
               required: true,
-              message: "Please enter the hourly rate",
+              message: 'Please enter hourly rate',
             },
           ]}
         >
-          <Input type="number" placeholder="Enter hourly rate" />
+          <Input type='number' placeholder='Enter hourly rate' />
         </Form.Item>
 
         <Form.Item
-          label="Number"
-          name="number"
+          label='Number'
+          name='phoneNumber'
           rules={[
             {
               required: true,
-              message: "Please enter the phone number",
+              message: 'Please enter phone number',
             },
           ]}
         >
-          <Input placeholder="Enter phone number" />
+          <Input placeholder='Enter phone number' />
         </Form.Item>
 
         <Form.Item
-          label="Role"
-          name="role"
+          label='Role'
+          name='role'
           rules={[
             {
               required: true,
-              message: "Please select a role",
+              message: 'Please select a role',
             },
           ]}
         >
-          <Select placeholder="Select role" mode="multiple">
-            <Select.Option value="Cashier">Cashier</Select.Option>
-            <Select.Option value="Waiter">Waiter</Select.Option>
-            <Select.Option value="Barista">Barista</Select.Option>
+          <Select placeholder='Select role' mode='multiple'>
+            {roles.map((role: any) => (
+              <Select.Option value={role.name}>{role.name}</Select.Option>
+            ))}
           </Select>
         </Form.Item>
 
-        <div className="tw-flex tw-justify-end">
+        <div className='tw-flex tw-justify-end'>
           <Form.Item>
-            <Button htmlType="submit">Save</Button>
+            <Button htmlType='submit'>Add</Button>
           </Form.Item>
         </div>
       </Form>
       <Modal
-        title="Confirm Employee Details"
+        title='Confirm Employee Details'
         open={confirmModalVisible}
         onOk={handleConfirmModalOk}
         onCancel={handleConfirmModalCancel}
-        okText="Save"
+        okText='Save'
         okButtonProps={{
-          type: "primary",
-          style: { backgroundColor: "#19c89c" },
+          type: 'primary',
+          style: { backgroundColor: '#19c89c' },
         }}
       >
         <p>Name: {formValues.name}</p>
         <p>Rate: {formValues.rate} / Hour</p>
         <p>Number: {formValues.number}</p>
         <p>
-          Role:{" "}
+          Role:{' '}
           {formValues?.role?.map((role: any, index: number) => (
             <span key={role}>
               {role}
-              {index !== formValues?.role?.length - 1 && " / "}
+              {index !== formValues?.role?.length - 1 && ' / '}
             </span>
           ))}
         </p>

@@ -32,20 +32,30 @@ interface ProfileProps {
 const SelectedProfileCard = (props: ProfileProps | null) => {
   const columns = [
     {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+    },
+    {
       title: 'Day',
       dataIndex: 'day',
       key: 'day',
     },
     {
-      title: 'Availability',
-      dataIndex: 'availability',
-      key: 'availability',
-      render: (availability: any) => (
-        <Tag color={availability ? 'green' : 'red'}>
-          {availability ? 'Yes' : 'No'}
-        </Tag>
-      ),
+      title: 'Shift',
+      dataIndex: 'shift',
+      key: 'shift',
     },
+    // {
+    //   title: 'Availability',
+    //   dataIndex: 'availability',
+    //   key: 'availability',
+    //   render: (availability: any) => (
+    //     <Tag color={availability ? 'green' : 'red'}>
+    //       {availability ? 'Yes' : 'No'}
+    //     </Tag>
+    //   ),
+    // },
     // {
     //   title: "Time",
     //   dataIndex: "time",
@@ -55,6 +65,24 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
     //       return <Tag color={"blue"}>{time}</Tag>;
     //     }),
     // },
+  ];
+
+  const availabilityData = [
+    {
+      date: '2023-06-19',
+      day: 'Monday',
+      shift: 'Morning Shift',
+    },
+    {
+      date: '2023-06-20',
+      day: 'Tuesday',
+      shift: 'Afternoon Shift',
+    },
+    {
+      date: '2023-06-21',
+      day: 'Wednesday',
+      shift: 'Full-day',
+    },
   ];
 
   const [edit, setEdit] = useState<boolean>(false);
@@ -151,7 +179,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-mb-4'>
               <Typography.Title level={5}>Schedule</Typography.Title>
               <Table
-                //dataSource={props?.profile?.shift}
+                dataSource={availabilityData}
                 columns={columns}
                 pagination={false}
                 showHeader={true}

@@ -18,7 +18,6 @@ import SelectNumber from '../selectNumber/selectNumber';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { createShifts } from '../../../redux/slices/shiftSlice';
-import { NotificationPlacement } from 'antd/es/notification/interface';
 
 const AddShiftCard = () => {
   const days = [
@@ -92,7 +91,7 @@ const AddShiftCard = () => {
   };
 
   const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
-  const [indeterminate, setIndeterminate] = useState(true);
+  const [indeterminate, setIndeterminate] = useState(false);
   const [checkAll, setCheckAll] = useState(false);
 
   const onChange = (list: CheckboxValueType[]) => {

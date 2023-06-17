@@ -85,12 +85,11 @@ const CalendarContent = (props: any) => {
   const [api, contextHolder] = notification.useNotification();
 
   const openSuccessNotification = () => {
-    console.log("ran")
-    api.info({
-      message: 'Successfully requested Shift!',
+    api.success({
+      message: 'Successfully added Shift!',
       description:
-        'Shift has been requested from employee through WhatsApp!',
-      // placement: 'bottomRight',
+        'Shift added to the database. Check it out in the Schedule tab.',
+      placement: 'bottomRight',
     });
   };
 
