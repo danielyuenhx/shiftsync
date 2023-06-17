@@ -1,3 +1,5 @@
+import { Badge } from "antd";
+
 export const data = [
   {
     name: "John Doess",
@@ -561,7 +563,7 @@ export const shiftData = [
 
 export const roleData = [
   {
-    title: "2 Barista",
+    title: "2 Baristas",
     color: "gold"
   },
   {
@@ -576,11 +578,11 @@ export const roleData = [
 
 export const dataTable = [
   { name: "John Doe", role: "Barista", approvalState: "Pending" },
-  { name: "Jane Smith", role: "Waiters", approvalState: "Approved" },
+  { name: "Jane Smith", role: "Waiter", approvalState: "Test" },
   { name: "Bob Johnson", role: "Barista", approvalState: "Rejected" },
-  { name: "Jason Doe", role: "Cashiers", approvalState: "Pending" },
-  { name: "Mary Jane", role: "Waiters", approvalState: "Approved" },
-  { name: "Johnson Mike", role: "Cashiers", approvalState: "Rejected" },
+  { name: "Jason Doe", role: "Cashier", approvalState: "Pending" },
+  { name: "Mary Jane", role: "Waiter", approvalState: "Approved" },
+  { name: "Johnson Mike", role: "Cashier", approvalState: "Rejected" },
 ];
 
 export const employeeForDemo = [];
@@ -596,12 +598,12 @@ export const states = [
       },
     ],
     employee: [
-      { name: "John Doe", role: "Barista", approvalState: "Pending" },
-      { name: "Jane Smith", role: "Waiters", approvalState: "Pending" },
-      { name: "Bob Johnson", role: "Barista", approvalState: "Pending" },
-      { name: "Jason Doe", role: "Cashiers", approvalState: "Pending" },
-      { name: "Mary Jane", role: "Waiters", approvalState: "Pending" },
-      { name: "Johnson Mike", role: "Cashiers", approvalState: "Pending" },
+      { name: "John Doe", role: "Barista", approvalState: <Badge status="warning" text="Pending" />},
+      { name: "Jane Smith", role: "Waiter", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Bob Johnson", role: "Barista", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Jason Doe", role: "Cashier", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Mary Jane", role: "Waiter", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Johnson Mike", role: "Cashier", approvalState: <Badge status="warning" text="Pending" /> },
     ],
   },
   {
@@ -627,12 +629,12 @@ export const states = [
       },
     ],
     employee: [
-      { name: "John Doe", role: "Barista", approvalState: "Approved" },
-      { name: "Jane Smith", role: "Waiters", approvalState: "Pending" },
-      { name: "Bob Johnson", role: "Barista", approvalState: "Approved" },
-      { name: "Jason Doe", role: "Cashiers", approvalState: "Approved" },
-      { name: "Mary Jane", role: "Waiters", approvalState: "Pending" },
-      { name: "Johnson Mike", role: "Cashiers", approvalState: "Approved" },
+      { name: "John Doe", role: "Barista", approvalState: <Badge status="success" text="Approved" /> },
+      { name: "Jane Smith", role: "Waiter", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Bob Johnson", role: "Barista", approvalState: <Badge status="success" text="Pending" /> },
+      { name: "Jason Doe", role: "Cashier", approvalState: <Badge status="success" text="Approved" /> },
+      { name: "Mary Jane", role: "Waiter", approvalState: <Badge status="warning" text="Pending" /> },
+      { name: "Johnson Mike", role: "Cashier", approvalState: <Badge status="error" text="Rejected" /> },
     ],
   },
   {

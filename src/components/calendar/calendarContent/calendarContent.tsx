@@ -1,54 +1,51 @@
 import {
-  Avatar,
   Button,
   Card,
   Col,
   Divider,
-  List,
   Row,
   Table,
   Tag,
   Timeline,
   Typography,
 } from 'antd';
-import React, { useState } from 'react';
 import { columns, roleData, states, time, shiftData } from '../../../data/data';
 import CalendarShiftBlock from '../calendarShiftBlock/calendarShiftBlock';
 
 const CalendarContent = (props: any) => {
   const request = [
     {
-      children: 'Request',
+      children: 'Send request',
       color: 'green',
     },
     {
-      children: 'Pending',
+      children: 'Pending replies',
       color: 'gray',
     },
     {
-      children: 'Ready',
+      children: 'Ready for approval',
       color: 'gray',
     },
   ];
 
   const pending = [
     {
-      children: 'Request',
+      children: 'Send request',
       color: 'green',
     },
   ];
 
   const ready = [
     {
-      children: 'Request',
+      children: 'Send request',
       color: 'green',
     },
     {
-      children: 'Pending',
+      children: 'Pending replies',
       color: 'green',
     },
     {
-      children: 'Ready',
+      children: 'Ready for approval',
       color: 'green',
     },
   ];
@@ -91,33 +88,36 @@ const CalendarContent = (props: any) => {
         <Card
           className='tw-h-auto'
           title={
-            <div className='tw-flex tw-flex-row '>
-              <Typography className='tw-mr-4'>
-                Afternoon - 1pm to 6pm
-              </Typography>
-              {roleData.map((role) => {
-                return <Tag color={role.color}>{role.title}</Tag>;
-              })}
-            </div>
-          }
-          extra={
-            <Button type='text' className='tw-bg-primary tw-text-white'>
-              Approve
-            </Button>
+            <Row className='tw-items-center !tw-min-h-[60px]'>
+              <Typography.Title level={3} className='!tw-m-0'>
+                Morning Shift
+              </Typography.Title>
+            </Row>
           }
         >
           <div>
-            {/* Timeline */}
-            <Timeline
-              pending={state.state === 'Pending' && 'Pending...'}
-              items={
-                state.state === 'Pending'
-                  ? pending
-                  : state.state === 'Ready'
-                  ? ready
-                  : request
-              }
-            />
+            <Col className='tw-h-[150px]'>
+              <Timeline
+                className='tw-absolute tw-right-10 tw-w-[500px] tw-mt-4'
+                pending={state.state === 'Pending' && 'Pending replies'}
+                mode='right'
+                items={
+                  state.state === 'Pending'
+                    ? pending
+                    : state.state === 'Ready'
+                    ? ready
+                    : request
+                }
+              />
+              <Row className="tw-h-6 tw-mb-4">
+                {roleData.map((role) => {
+                  return <Tag color={role.color}>{role.title}</Tag>;
+                })}
+              </Row>
+              <Row>
+                <Typography.Text>06:30 - 14:00</Typography.Text>
+              </Row>
+            </Col>
 
             {/* <List
               className="tw-mb-4"
@@ -141,6 +141,9 @@ const CalendarContent = (props: any) => {
             />
           </div>
         </Card>
+        <Button type='text' className='tw-bg-primary tw-text-white tw-float-right tw-mt-4'>
+          Request shift availability
+        </Button>
       </Col>
     </Row>
   );
