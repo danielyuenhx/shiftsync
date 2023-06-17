@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ProfileCard from '../profileCard/profileCard';
-import SelectedProfileCard from '../selectedProfileCard/selectedProfileCard';
+import ProfileCard from './profileCard/profileCard';
+import SelectedProfileCard from './selectedProfileCard/selectedProfileCard';
 import { data } from '../../data/data';
 import { Col, Pagination, Row } from 'antd';
 
