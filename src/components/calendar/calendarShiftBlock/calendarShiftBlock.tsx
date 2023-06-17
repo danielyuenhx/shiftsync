@@ -21,6 +21,7 @@ const CalendarShiftBlock = ({
 
   return (
     <div
+      // TODO: Add onClick
       style={{
         position: 'absolute',
         height: `${heightPerHour * (endTime - startTime)}px`,
