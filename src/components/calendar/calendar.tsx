@@ -9,6 +9,7 @@ import {
 import type { Dayjs } from "dayjs";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import CalendarContent from "../calendarContent/calendarContent";
+import CalendarLogs from "../calendarLogs/calendarLogs";
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState<Dayjs | undefined>(
@@ -29,7 +30,12 @@ const Calendar = () => {
 
   const renderContent = () => {
     if (selectedDate) {
-      return <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />;
+      return (
+        <>
+          <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />
+          <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
+        </>
+      );
     }
     // Render default content when no date is selected
   };
@@ -54,7 +60,7 @@ const Calendar = () => {
   //       </div>
   //     );
   //   }
-  //   // return "Good to go"
+  //   return "Good to go"
   // };
 
   const breadcrumbItems = selectedDate
@@ -71,12 +77,13 @@ const Calendar = () => {
   return (
     <Card className="tw-m-0">
       <Breadcrumb>{breadcrumbItems}</Breadcrumb>
-
-      <AntCalendar
-        onPanelChange={onPanelChange}
-        onSelect={(e) => selectDateHandler(e)}
-      />
-
+      {!selectedDate && (
+        <AntCalendar
+          onPanelChange={onPanelChange}
+          onSelect={(e) => selectDateHandler(e)}
+          // dateCellRender={dateCellRender}
+        />
+      )}
       {renderContent()}
     </Card>
   );

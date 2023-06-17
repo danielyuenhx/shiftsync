@@ -7,10 +7,12 @@ import {
   List,
   Row,
   Table,
+  Tag,
   Timeline,
+  Typography,
 } from "antd";
 import React, { useState } from "react";
-import { columns, dataTable, roleData, time } from "../../data/data";
+import { columns, roleData, states, time } from "../../data/data";
 
 const CalendarContent = (props: any) => {
   const request = [
@@ -49,14 +51,23 @@ const CalendarContent = (props: any) => {
       color: "green",
     },
   ];
-  const [state, setState] = useState<string | "Request" | "Pending" | "Ready">(
-    "Request"
-  );
+
+  const renderState = (date: any) => {
+    if (date === "2023-06-17") {
+      return { state: states[0].state, employee: states[0].employee };
+    } else if (date === "2023-06-18") {
+      return { state: states[1].state, employee: states[1].employee };
+    } else if (date === "2023-06-19") {
+      return { state: states[2].state, employee: states[2].employee };
+    } else {
+      return { state: states[0].state, employee: states[0].employee };
+    }
+  };
+
+  const state = renderState(props.date);
 
   return (
-    <Row className="tw-w-full  tw-justify-between">
-      <Divider orientation="left">{props.date}</Divider>
-
+    <Row className="tw-w-full tw-justify-between tw-mt-2">
       <Col span={8}>
         <Card title="Timeline" className="tw-min-h-[600px]">
           <div className="tw-max-h-[500px] tw-overflow-y-scroll tw-pr-4">
@@ -90,7 +101,16 @@ const CalendarContent = (props: any) => {
       <Col span={15}>
         <Card
           className="tw-h-auto"
-          title="Afternoon - 1pm to 6pm"
+          title={
+            <div className="tw-flex tw-flex-row ">
+              <Typography className="tw-mr-4">
+                Afternoon - 1pm to 6pm
+              </Typography>
+              {roleData.map((role) => {
+                return <Tag color={role.color}>{role.title}</Tag>;
+              })}
+            </div>
+          }
           extra={
             <Button type="text" className="tw-bg-primary tw-text-white">
               Approve
@@ -100,37 +120,33 @@ const CalendarContent = (props: any) => {
           <div>
             {/* Timeline */}
             <Timeline
-              pending={state === "Pending" && "Pending..."}
+              pending={state.state === "Pending" && "Pending..."}
               items={
-                state === "Pending"
+                state.state === "Pending"
                   ? pending
-                  : state === "Ready"
+                  : state.state === "Ready"
                   ? ready
                   : request
               }
             />
 
-            {/* Roles needed */}
-            <List
+            {/* <List
+              className="tw-mb-4"
               itemLayout="horizontal"
               dataSource={roleData}
               renderItem={(item, index) => (
                 <List.Item>
                   <List.Item.Meta
-                    avatar={
-                      <Avatar
-                        src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
-                      />
-                    }
+                    className="tw-font-semibold"
                     title={item.title}
                   />
                 </List.Item>
               )}
-            />
+            /> */}
 
             {/* Employees */}
             <Table
-              dataSource={dataTable}
+              dataSource={state.employee}
               columns={columns}
               pagination={false}
             />
