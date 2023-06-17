@@ -3,8 +3,9 @@ import {
   UserOutlined,
   CalendarOutlined,
   SettingOutlined,
+  UpSquareOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Row, theme } from 'antd';
+import { Layout, Menu, Row, Typography, theme } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import logoSingle from '../assets/logo-single.png';
@@ -27,12 +28,16 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
     switch (location.pathname) {
       case '/employees':
         return '2';
-      case '/settings':
+      case '/shifts':
         return '3';
+      case '/settings':
+        return '4';
       default:
         return '1';
     }
   };
+
+  console.log(location.pathname);
 
   return (
     <Layout>
@@ -61,13 +66,22 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
           <Menu.Item key='2' icon={<UserOutlined />}>
             <Link to='/employees'>Employee</Link>
           </Menu.Item>
-          <Menu.Item key='3' icon={<SettingOutlined />}>
+          <Menu.Item key='3' icon={<UpSquareOutlined />}>
+            <Link to='/shifts'>Shifts</Link>
+          </Menu.Item>
+          <Menu.Item key='4' icon={<SettingOutlined />}>
             <Link to='/settings'>Settings</Link>
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout className='tw-h-full tw-min-h-[100vh]'>
-        <Content className='tw-my-6 tw-mx-4 tw-p-3 tw-min-h-[90%] tw-rounded-4 tw-w-[97%]'>
+        <Content className='tw-my-6 tw-mx-6 tw-p-3 tw-min-h-[90%] tw-rounded-4 tw-w-[97%]'>
+          <Typography.Title level={2} className="!tw-font-[700]">
+            {location.pathname === '/'
+              ? 'Schedule'
+              : location.pathname.charAt(1).toUpperCase() +
+                location.pathname.slice(2)}
+          </Typography.Title>
           {children}
         </Content>
       </Layout>
