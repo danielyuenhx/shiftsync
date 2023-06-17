@@ -65,10 +65,10 @@ const CalendarContent = (props: any) => {
   const state = renderState(props.date);
 
   return (
-    <Row className='tw-w-full tw-justify-between tw-items-center tw-mt-2'>
-      <Col span={8} className='tw-m-4'>
-        <div className='tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl'>
-          <div className='tw-max-h-[550px] tw-overflow-y-scroll tw-pr-4 tw-relative'>
+    <Row className='tw-w-full tw-justify-around tw-align-top tw-mt-4'>
+      <Col span={8}>
+        <div className='tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative'>
+          <div className='tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative'>
             {shiftData.map((shift, index) => (
               <CalendarShiftBlock
                 blockIndex={index}

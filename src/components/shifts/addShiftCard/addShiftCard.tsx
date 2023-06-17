@@ -167,7 +167,7 @@ const AddShiftCard = () => {
     >
       {contextHolder}
       <Row className='tw-gap-20 tw-text-xl'>
-        <Col span={10} className='tw-gap-4 tw-flex tw-flex-col'>
+        <Col span={10} className='tw-gap-5 tw-flex tw-flex-col'>
           <Input
             id='name'
             placeholder='Shift Name'

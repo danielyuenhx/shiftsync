@@ -22,43 +22,53 @@ import { micah, personas, thumbs } from '@dicebear/collection';
 interface ProfileProps {
   profile: {
     name: string;
-    role: Array<string>;
-    hourlyRate: number;
-    number: string;
-    shift: string;
+    roles: Array<any>;
+    hourly_rate: number;
+    phone_number: string;
+    // shift: string;
   };
 }
 
-const columns = [
-  {
-    title: 'Day',
-    dataIndex: 'day',
-    key: 'day',
-  },
-  {
-    title: 'Availability',
-    dataIndex: 'availability',
-    key: 'availability',
-    render: (availability: any) => (
-      <Tag color={availability ? 'green' : 'red'}>
-        {availability ? 'Yes' : 'No'}
-      </Tag>
-    ),
-  },
-  // {
-  //   title: "Time",
-  //   dataIndex: "time",
-  //   key: "time",
-  //   render: (time: any) =>
-  //     time?.map((time: any) => {
-  //       return <Tag color={"blue"}>{time}</Tag>;
-  //     }),
-  // },
-];
-
 const SelectedProfileCard = (props: ProfileProps | null) => {
+  const columns = [
+    {
+      title: 'Day',
+      dataIndex: 'day',
+      key: 'day',
+    },
+    {
+      title: 'Availability',
+      dataIndex: 'availability',
+      key: 'availability',
+      render: (availability: any) => (
+        <Tag color={availability ? 'green' : 'red'}>
+          {availability ? 'Yes' : 'No'}
+        </Tag>
+      ),
+    },
+    // {
+    //   title: "Time",
+    //   dataIndex: "time",
+    //   key: "time",
+    //   render: (time: any) =>
+    //     time?.map((time: any) => {
+    //       return <Tag color={"blue"}>{time}</Tag>;
+    //     }),
+    // },
+  ];
+
   const [edit, setEdit] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const roleColour = (role: string) => {
+    if (role === 'Cashier') {
+      return 'gold';
+    } else if (role === 'Waiter') {
+      return 'red';
+    } else if (role === 'Barista') {
+      return 'blue';
+    }
+  };
 
   const handleRateChange = (e: any) => {
     console.log(e.target.value);
@@ -90,7 +100,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
 
   return (
     <Card
-    size='default'
+      size='default'
       title={
         props?.profile && (
           <Row className='tw-items-center tw-gap-4 !tw-min-h-[75px]'>
@@ -106,7 +116,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
                 />
               }
             />
-            <Typography.Title level={3} className="!tw-m-0">
+            <Typography.Title level={3} className='!tw-m-0'>
               {props?.profile?.name}
             </Typography.Title>
           </Row>
@@ -150,12 +160,12 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Hourly rate (RM)</Typography.Title>
               {!edit ? (
-                <p className='tw-text-[16px]'>{props?.profile?.hourlyRate}</p>
+                <p className='tw-text-[16px]'>{props.profile.hourly_rate}</p>
               ) : (
                 <Input
                   id='rate'
                   placeholder='Rate'
-                  value={props?.profile?.hourlyRate}
+                  value={props.profile.hourly_rate}
                   onChange={handleRateChange}
                   disabled={!edit}
                   className='tw-h-[35px]'
@@ -165,12 +175,12 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Phone Number</Typography.Title>
               {!edit ? (
-                <p className='tw-text-[16px]'>{props?.profile?.number}</p>
+                <p className='tw-text-[16px]'>{props.profile.phone_number}</p>
               ) : (
                 <Input
                   id='phoneNumber'
                   placeholder='Phone Number'
-                  value={props?.profile?.number}
+                  value={props.profile.phone_number}
                   onChange={handlePhoneNumberChange}
                   disabled={!edit}
                   className='tw-h-[35px]'
@@ -180,20 +190,30 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Roles</Typography.Title>
               {!edit ? (
-                <p className='tw-text-[16px]'>{props?.profile?.role}</p>
+                <Row>
+                  {props.profile.roles.map((role) => (
+                    <Tag
+                      key={role.name}
+                      color={roleColour(role.name)}
+                      className='tw-mb-1'
+                    >
+                      {role.name}
+                    </Tag>
+                  ))}
+                </Row>
               ) : (
                 <Select
                   id='values'
                   mode='multiple'
                   placeholder='Select roles'
-                  value={props?.profile?.role}
+                  value={props.profile.roles.map((role) => role.name)}
                   onChange={handleDropdownChange}
                   className='tw-h-[35px] tw-w-full'
                   disabled={!edit}
                 >
-                  <Select.Option value='Value 1'>Value 1</Select.Option>
-                  <Select.Option value='Value 2'>Value 2</Select.Option>
-                  <Select.Option value='Value 3'>Value 3</Select.Option>
+                  {props.profile.roles.map((role) => (
+                    <Select.Option value={role.name}>{role.name}</Select.Option>
+                  ))}
                 </Select>
               )}
             </div>
@@ -206,13 +226,13 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
             okText='Delete'
             okButtonProps={{ danger: true }}
           >
-            <p>Are you sure you want to delete {props?.profile?.name}?</p>
+            <p>Are you sure you want to delete {props.profile.name}?</p>
           </Modal>
         </>
       ) : (
         <div className='tw-flex tw-flex-col tw-justify-center tw-items-center tw-text-primary tw-p-10'>
           <InfoCircleOutlined className='tw-text-7xl tw-p-8' />
-          <Typography className='tw-text-primary tw-text-2xl tw-font-bold'>
+          <Typography className='tw-text-primary tw-text-2xl tw-font-semibold'>
             Click on a card to view a profile!
           </Typography>
         </div>
