@@ -1,5 +1,5 @@
 import  { useState } from "react";
-import { Typography, Tag, Button, Card, TimePicker, Modal } from "antd";
+import { Typography, Tag, Button, Card, TimePicker, Modal, Row } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const shifts = [
@@ -60,7 +60,7 @@ const AddShiftCard = () => {
         </Typography.Title>
       }
     >
-      <div className="tw-flex tw-flex-row tw-w-64 tw-mb-4">
+      <Row className="tw-mb-4">
         {shifts.map((shift: any) => {
           return (
             <Tag key={shift.type} color={shiftColour(shift.type)}>
@@ -72,7 +72,7 @@ const AddShiftCard = () => {
             </Tag>
           );
         })}
-      </div>
+      </Row>
 
       <TimePicker.RangePicker
         minuteStep={5}
@@ -82,9 +82,9 @@ const AddShiftCard = () => {
         format="HH:mm:ss"
       />
 
-      <div className="tw-flex tw-justify-end tw-mt-4">
+      <Row className="tw-justify-end tw-mt-4">
         <Button>Save</Button>
-      </div>
+      </Row>
       <Modal
         title="Confirm Deletion"
         open={modalVisible}

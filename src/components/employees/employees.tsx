@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ProfileCard from '../profileCard/profileCard';
 import SelectedProfileCard from '../selectedProfileCard/selectedProfileCard';
 import { data } from '../../data/data';
-import { Pagination } from 'antd';
+import { Col, Pagination, Row } from 'antd';
 
 interface ProfileProps {
   name: string;
@@ -34,7 +34,7 @@ const Employees = () => {
       return (
         <div
           // key={profile.name}
-          style={{ width: '100%', cursor: 'pointer' }}
+          className="tw-w-full cursor-pointer"
           onClick={() => handleProfileClick(profile)}
         >
           <ProfileCard profile={profile} />
@@ -44,15 +44,10 @@ const Employees = () => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '15px' }}>
-      <div
-        style={{
-          width: '30%',
-          display: 'flex',
-          gap: '10px',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
+    <Row className='tw-gap-6'>
+      <Col
+        span={8}
+        className='tw-flex tw-flex-col tw-gap-4 tw-items-center'
       >
         {renderProfiles()}
         <Pagination
@@ -61,11 +56,11 @@ const Employees = () => {
           pageSize={itemsPerPage}
           onChange={handlePageChange}
         />
-      </div>
-      <div style={{ width: '70%' }}>
+      </Col>
+      <Col span={15}>
         <SelectedProfileCard profile={selectedProfile} />
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 
