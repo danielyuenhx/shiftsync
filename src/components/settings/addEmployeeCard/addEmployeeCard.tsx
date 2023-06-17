@@ -23,7 +23,7 @@ const AddEmployeeCard = () => {
   };
 
   return (
-    <Card bordered={false} className="tw-w-auto">
+    <Card bordered={false} className="tw-w-[40%]">
       <Typography.Title level={5} className="tw-mt-2">
         Add Employees
       </Typography.Title>

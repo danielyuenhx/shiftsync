@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Input, Typography, Tag, Button, Card, Modal, Row } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { createRoles, roleDetails } from "../../../redux/slices/roleSlice";
 
 const roles = ["Cashier", "Waiter", "Barista"];
 
@@ -12,11 +14,16 @@ const AddRoleCard = () => {
       return "red";
     } else if (role === "Barista") {
       return "blue";
+    } else if (role === "Janitor"){
+      return "purple"
     }
   };
 
+  const dispatch = useAppDispatch();
   const [deleteRole, setDeleteRole] = useState("");
+  const [newRole, setNewRole] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const roles = useAppSelector(roleDetails);
 
   const showConfirmationModal = (e: any, role: string) => {
     setModalVisible(true);
@@ -40,13 +47,17 @@ const AddRoleCard = () => {
   };
 
   const addNewRole = (e: any) => {
-    console.log(e.target.value);
+    setNewRole(e.target.value);
+  };
+
+  const saveHandler = () => {
+    createRoles(dispatch, { name: newRole });
   };
 
   return (
     <Card
       bordered={false}
-      className="tw-w-auto"
+      className="tw-w-[40%]"
       title={
         <Typography.Title level={5} className="tw-mt-2">
           Add Roles
@@ -54,22 +65,24 @@ const AddRoleCard = () => {
       }
     >
       <Row className="tw-mb-4">
-        {roles.map((role: string) => (
-          <div
-            key={role}
-            style={{
-              display: modalVisible && deleteRole === role ? "none" : "block",
-            }}
-          >
-            <Tag color={roleColour(role)}>
-              {role}
-              <DeleteOutlined
-                className="tw-ml-2"
-                onClick={(e) => showConfirmationModal(e, role)}
-              />
-            </Tag>
-          </div>
-        ))}
+        {roles.map((role: any) => {
+          return (
+            <div
+              style={{
+                display:
+                  modalVisible && deleteRole === role.name ? "none" : "block",
+              }}
+            >
+              <Tag color={roleColour(role.name)}>
+                {role.name}
+                <DeleteOutlined
+                  className="tw-ml-2"
+                  onClick={(e) => showConfirmationModal(e, role.name)}
+                />
+              </Tag>
+            </div>
+          );
+        })}
       </Row>
 
       <Input
@@ -80,7 +93,7 @@ const AddRoleCard = () => {
       />
 
       <Row className="tw-justify-end tw-mt-4">
-        <Button>Save</Button>
+        <Button onClick={saveHandler}>Save</Button>
       </Row>
 
       <Modal

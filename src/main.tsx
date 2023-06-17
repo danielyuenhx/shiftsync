@@ -9,13 +9,11 @@ import { ConfigProvider } from "antd";
 import { customTheme } from "./assets/theme.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <ConfigProvider theme={customTheme}>
-          <App />
-        </ConfigProvider>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <ConfigProvider theme={customTheme}>
+        <App />
+      </ConfigProvider>
+    </Provider>
+  </BrowserRouter>
 );

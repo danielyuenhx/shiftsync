@@ -40,6 +40,7 @@ interface data {
 export function createRoles(dispatch: any, data: data) {
   API.createRoles(data.name)
     .then((response) => {
+      console.log(response)
       const data = response?.data?.data;
       dispatch(updateRoleData(data));
     })
