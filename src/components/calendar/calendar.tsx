@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Calendar as AntCalendar,
   Card,
   Breadcrumb,
   Typography,
   Alert,
-} from "antd";
-import type { Dayjs } from "dayjs";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
-import CalendarContent from "../calendarContent/calendarContent";
-import CalendarLogs from "../calendarLogs/calendarLogs";
+} from 'antd';
+import type { Dayjs } from 'dayjs';
+import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
+import CalendarContent from './calendarContent/calendarContent';
+import CalendarLogs from './calendarLogs/calendarLogs';
 
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState<Dayjs | undefined>(
@@ -32,8 +32,8 @@ const Calendar = () => {
     if (selectedDate) {
       return (
         <>
-          <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />
-          <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
+          <CalendarContent date={selectedDate.format('YYYY-MM-DD')} />
+          <CalendarLogs date={selectedDate.format('YYYY-MM-DD')} />
         </>
       );
     }
@@ -65,17 +65,25 @@ const Calendar = () => {
 
   const breadcrumbItems = selectedDate
     ? [
-        <Breadcrumb.Item key="calendar" onClick={removeDateHandler}>
-          Calendar
+        <Breadcrumb.Item
+          key='calendar'
+          onClick={removeDateHandler}
+          className='tw-cursor-pointer'
+        >
+          {selectedDate.format('MMMM')}
         </Breadcrumb.Item>,
-        <Breadcrumb.Item key="selectedDate">
-          {selectedDate.format("YYYY-MM-DD")}
+        <Breadcrumb.Item key='selectedDate'>
+          {selectedDate.format('YYYY-MM-DD')}
         </Breadcrumb.Item>,
       ]
-    : [<Breadcrumb.Item key="calendar">Calendar</Breadcrumb.Item>];
+    : [
+        // <Breadcrumb.Item key='calendar'>
+        //   {selectedDate.format('MMMM')}
+        // </Breadcrumb.Item>,
+      ];
 
   return (
-    <Card className="tw-m-0">
+    <Card className=''>
       <Breadcrumb>{breadcrumbItems}</Breadcrumb>
       {!selectedDate && (
         <AntCalendar

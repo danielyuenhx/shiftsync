@@ -538,6 +538,27 @@ export const time = [
   "11pm",
 ];
 
+export const shiftData = [
+  {
+    title: "Morning Shift",
+    startTime: 6.5,
+    endTime: 14,
+    colour: "#ff6961",
+  },
+  {
+    title: "Afternoon Shift",
+    startTime: 12,
+    endTime: 18,
+    colour: "#8be1e7"
+  },
+  {
+    title: "Longest shift name ever existed into two lines",
+    startTime: 16,
+    endTime: 22,
+    colour: "#fcecb2"
+  }
+]
+
 export const roleData = [
   {
     title: "2 Barista",
