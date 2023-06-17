@@ -31,7 +31,7 @@ const ProfileCard = (props: ProfileProps) => {
           className='tw-flex tw-flex-col tw-justify-center tw-items-center'
         >
           <Avatar
-            size={64}
+            size={52}
             icon={
               <img
                 src={`data:image/svg+xml;utf8,${encodeURIComponent(
@@ -43,7 +43,7 @@ const ProfileCard = (props: ProfileProps) => {
             }
             className='tw-mb-3'
           />
-          <h3 className='tw-text-[16px] tw-text-black tw-font-bold'>
+          <h3 className='tw-text-[16px] tw-text-black tw-font-semibold'>
             {props?.profile?.name}
           </h3>
           <p className='tw-text-[14px] tw-text-gray-500'>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import {
   Typography,
-  Tag,
   Button,
   Card,
   TimePicker,
@@ -11,9 +10,15 @@ import {
   Input,
   Select,
   Checkbox,
-  InputNumber,
+  notification,
 } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
+import { roleDetails } from '../../../redux/slices/roleSlice';
+import SelectNumber from '../selectNumber/selectNumber';
+import { CheckboxValueType } from 'antd/es/checkbox/Group';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { createShifts } from '../../../redux/slices/shiftSlice';
+import { NotificationPlacement } from 'antd/es/notification/interface';
 
 const AddShiftCard = () => {
   const days = [
@@ -35,6 +40,8 @@ const AddShiftCard = () => {
       return 'pink';
     }
   };
+
+  const roles = useAppSelector(roleDetails);
 
   const [deleteShift, setDeleteShift] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -72,15 +79,81 @@ const AddShiftCard = () => {
     setEndTime(timeString[1]);
   };
 
-  const [role, setRole] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
   const handleRoleChange = (e: any) => {
-    setRole(e);
+    setSelectedRoles(e);
   };
 
-  const [roleNumber, setRoleNumber] = useState({});
-  const handleNumberChange = (e: any) => {
-    console.log(e);
-    setRoleNumber((prev) => ({ ...prev, e: e }));
+  const [roleNumber, setRoleNumber] = useState<{ [key: string]: string }>({});
+  const handleNumberChange = (role: string, e: any) => {
+    const newRoleNumber: any = {};
+    newRoleNumber[role] = e;
+    setRoleNumber((prev) => ({ ...prev, ...newRoleNumber }));
+  };
+
+  const [checkedList, setCheckedList] = useState<CheckboxValueType[]>([]);
+  const [indeterminate, setIndeterminate] = useState(true);
+  const [checkAll, setCheckAll] = useState(false);
+
+  const onChange = (list: CheckboxValueType[]) => {
+    setCheckedList(list);
+    setIndeterminate(!!list.length && list.length < days.length);
+    setCheckAll(list.length === days.length);
+  };
+
+  const onCheckAllChange = (e: CheckboxChangeEvent) => {
+    setCheckedList(e.target.checked ? days : []);
+    setIndeterminate(false);
+    setCheckAll(e.target.checked);
+  };
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const openSuccessNotification = () => {
+    api.success({
+      message: 'Successfully added Shift!',
+      description:
+        'Shift added to the database. Check it out in the Schedule tab.',
+      placement: 'bottomRight',
+    });
+  };
+
+  const dispatch = useAppDispatch();
+  const handleAddShift = async () => {
+    const sunday = checkedList.includes('Sunday');
+    const monday = checkedList.includes('Monday');
+    const tuesday = checkedList.includes('Tuesday');
+    const wednesday = checkedList.includes('Wednesday');
+    const thursday = checkedList.includes('Thursday');
+    const friday = checkedList.includes('Friday');
+    const saturday = checkedList.includes('Saturday');
+
+    const rolesToBeAdded = Object.keys(roleNumber).map((roleName: string) => {
+      const roleId = roles.find((role: any) => role.name === roleName).id;
+      return { id: roleId, noOfEmployees: roleNumber[roleName] };
+    });
+
+    await createShifts(dispatch, {
+      name,
+      startTime,
+      endTime,
+      monday,
+      tuesday,
+      wednesday,
+      thursday,
+      friday,
+      saturday,
+      sunday,
+      roles: rolesToBeAdded,
+    });
+
+    setName('');
+    setCheckedList([]);
+    setIndeterminate(false);
+    setCheckAll(false);
+    setRoleNumber({});
+
+    openSuccessNotification();
   };
 
   return (
@@ -92,14 +165,14 @@ const AddShiftCard = () => {
         </Typography.Title>
       }
     >
-      <Row className='tw-gap-14 tw-text-xl'>
-        <Col span={11} className='tw-gap-4 tw-flex tw-flex-col'>
+      {contextHolder}
+      <Row className='tw-gap-20 tw-text-xl'>
+        <Col span={10} className='tw-gap-4 tw-flex tw-flex-col'>
           <Input
             id='name'
             placeholder='Shift Name'
             value={name}
             onChange={handleNameChange}
-            size='large'
           />
           <TimePicker.RangePicker
             minuteStep={5}
@@ -107,7 +180,6 @@ const AddShiftCard = () => {
             className='tw-w-full'
             onChange={handleTimeChange}
             format='HH:mm:ss'
-            size='large'
           />
           <Select
             id='values'
@@ -115,32 +187,46 @@ const AddShiftCard = () => {
             placeholder='Select roles'
             onChange={handleRoleChange}
             className='tw-h-[35px] tw-w-full'
-            size='large'
           >
-            <Select.Option value='Value 1'>Value 1</Select.Option>
-            <Select.Option value='Value 2'>Value 2</Select.Option>
-            <Select.Option value='Value 3'>Value 3</Select.Option>
+            {roles.map((role: any) => (
+              <Select.Option value={role.name}>{role.name}</Select.Option>
+            ))}
           </Select>
-          {role.map((role) => (
-            <Row className='tw-gap-4 tw-items-center'>
-              <p>{role}</p>
-              <InputNumber
-                min={1}
-                max={24}
-                defaultValue={1}
-                onChange={handleNumberChange}
-              />
-            </Row>
-          ))}
         </Col>
         <Col span={4}>
-          <Checkbox.Group style={{ width: '100%' }}>
+          <Typography.Title level={5}>Roles</Typography.Title>
+          {selectedRoles.length ? (
+            <Col className='tw-gap-2 tw-flex tw-flex-col'>
+              {selectedRoles.map((role) => (
+                <SelectNumber
+                  role={role}
+                  handleNumberChange={handleNumberChange}
+                />
+              ))}
+            </Col>
+          ) : (
+            <Typography.Text className='tw-text-gray-500'>
+              Select a role first!
+            </Typography.Text>
+          )}
+        </Col>
+        <Col span={4}>
+          <Checkbox
+            indeterminate={indeterminate}
+            onChange={onCheckAllChange}
+            checked={checkAll}
+          >
+            All days
+          </Checkbox>
+          <Checkbox.Group
+            style={{ width: '100%' }}
+            value={checkedList}
+            onChange={onChange}
+          >
             <Col>
               {days.map((day) => (
                 <Col span={8}>
-                  <Checkbox value={day} className='tw-text-[16px]'>
-                    {day}
-                  </Checkbox>
+                  <Checkbox value={day}>{day}</Checkbox>
                 </Col>
               ))}
             </Col>
@@ -148,8 +234,21 @@ const AddShiftCard = () => {
         </Col>
       </Row>
 
-      <Row className='tw-justify-end tw-mt-4'>
-        <Button>Save</Button>
+      <Row className='tw-justify-end tw-bottom-0'>
+        <Button
+          type='primary'
+          className='tw-bg-primary'
+          onClick={handleAddShift}
+          disabled={
+            !name ||
+            !startTime ||
+            !endTime ||
+            !selectedRoles.length ||
+            !checkedList.length
+          }
+        >
+          Add
+        </Button>
       </Row>
       <Modal
         title='Confirm Deletion'
