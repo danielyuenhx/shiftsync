@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { useAppDispatch } from "../hooks/hooks";
-
+import * as API from "../../api/index";
 export interface EmployeeState {
-  employeeId: string;
+  data: any;
 }
 
 const initialState: EmployeeState = {
-  employeeId: "testing employee",
+  data: [],
 };
 
 export const employeeSlice = createSlice({
@@ -15,25 +14,50 @@ export const employeeSlice = createSlice({
   initialState,
 
   reducers: {
-    updateEmployeeData: (state, action: PayloadAction<string>) => {
-      state.employeeId = action.payload;
+    updateEmployeeData: (state, action: PayloadAction<any>) => {
+      state.data = action.payload;
     },
   },
 });
 
-export async function fetchEmployee(): Promise<any> {
-  const dispatch = useAppDispatch();
-  try {
-    // Retrieve the data from the API
-    // Insert the data into the store
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+export function getEmployees(dispatch: any) {
+  API.fetchEmployees()
+    .then((response) => {
+      const data = response?.data?.data;
+      dispatch(updateEmployeeData(data));
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
+}
+
+interface data {
+  name: string;
+  phoneNumber: string;
+  hourlyRate: number;
+  roleIds: number;
+}
+
+export function createEmployees(dispatch: any, data: data) {
+  API.createEmployees(
+    data.name,
+    data.phoneNumber,
+    data.hourlyRate,
+    data.roleIds
+  )
+    .then((response) => {
+      const data = response?.data?.data;
+      dispatch(updateEmployeeData(data));
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
 }
 
 export const { updateEmployeeData } = employeeSlice.actions;
 
-export const employeeDetails = (state: RootState) => state.employee.employeeId;
+export const employeeDetails = (state: RootState) => state.employee.data;
 
 export default employeeSlice.reducer;
