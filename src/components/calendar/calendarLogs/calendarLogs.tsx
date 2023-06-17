@@ -3,11 +3,11 @@ import { states } from "../../../data/data";
 
 const CalendarLogs = (props: any) => {
   const renderLogs = (date: any) => {
-    if (date === "2023-06-17") {
+    if (date === "2023-06-19") {
       return states[0].logs;
-    } else if (date === "2023-06-18") {
+    } else if (date === "2023-06-20") {
       return states[1].logs;
-    } else if (date === "2023-06-19") {
+    } else if (date === "2023-06-21") {
       return states[2].logs;
     } else {
       return states[0].logs;
