@@ -37,8 +37,6 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
     }
   };
 
-  console.log(location.pathname);
-
   return (
     <Layout>
       <Sider
@@ -49,10 +47,14 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
         onCollapse={(value) => setCollapsed(value)}
       >
         <Row className='tw-h-24'>
-          <img
-            src={collapsed ? logoSingle : logo}
-            className={`tw-px-5 tw-py-8 ${collapsed ? 'tw-max-w-[80px]' : ''}`}
-          />
+          <Link to='/'>
+            <img
+              src={collapsed ? logoSingle : logo}
+              className={`tw-px-5 tw-py-8 tw-cursor-pointer ${
+                collapsed ? 'tw-max-w-[80px]' : ''
+              }`}
+            />
+          </Link>
         </Row>
         <Menu
           mode='inline'
@@ -64,7 +66,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
             <Link to='/'>Schedule</Link>
           </Menu.Item>
           <Menu.Item key='2' icon={<UserOutlined />}>
-            <Link to='/employees'>Employee</Link>
+            <Link to='/employees'>Employees</Link>
           </Menu.Item>
           <Menu.Item key='3' icon={<UpSquareOutlined />}>
             <Link to='/shifts'>Shifts</Link>
@@ -76,7 +78,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
       </Sider>
       <Layout className='tw-h-full tw-min-h-[100vh]'>
         <Content className='tw-my-6 tw-mx-6 tw-p-3 tw-min-h-[90%] tw-rounded-4 tw-w-[97%]'>
-          <Typography.Title level={2} className="!tw-font-[700] tw-pb-2">
+          <Typography.Title level={2} className='!tw-font-[700] tw-pb-2'>
             {location.pathname === '/'
               ? 'Schedule'
               : location.pathname.charAt(1).toUpperCase() +

@@ -61,8 +61,8 @@ const Shifts = () => {
   ];
 
   return (
-    <Row>
-      <Col span={24}>
+    <Row className="tw-gap-6">
+      <Col span={13}>
         <AddShiftCard />
       </Col>
       <Col span={24}>
