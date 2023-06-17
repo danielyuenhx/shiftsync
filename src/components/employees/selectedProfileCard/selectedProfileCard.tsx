@@ -7,8 +7,13 @@ import {
   Card,
   Button,
   Modal,
+  Divider
 } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import {
+  InfoCircleOutlined,
+  EditOutlined,
+  UserDeleteOutlined,
+} from '@ant-design/icons';
 import { useState } from 'react';
 
 interface ProfileProps {
@@ -84,10 +89,7 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
     <Card
       title={
         props?.profile && (
-          <Typography.Title
-            className='tw-mt-4'
-            level={3}
-          >
+          <Typography.Title className='tw-mt-4' level={3}>
             {props?.profile?.name}
           </Typography.Title>
         )
@@ -96,12 +98,19 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
         props?.profile && (
           <div className='tw-w-56 tw-flex tw-justify-between tw-flex-row'>
             <Button
+              icon={<EditOutlined />}
+              type='default'
               onClick={editHandler}
-              className="tw-w-[100px] tw-text-black"
+              className='tw-w-[100px] tw-text-black'
             >
               {edit ? 'Save' : 'Edit'}
             </Button>
-            <Button onClick={deleteHandler} danger className="tw-w-[100px]">
+            <Button
+              icon={<UserDeleteOutlined />}
+              onClick={deleteHandler}
+              danger
+              className='tw-w-[100px]'
+            >
               Delete
             </Button>
           </div>
@@ -110,51 +119,66 @@ const SelectedProfileCard = (props: ProfileProps | null) => {
     >
       {props?.profile ? (
         <>
-          <div className='tw-flex tw-flex-col tw-gap-4'>
-            <Typography.Title level={5}>Schedule</Typography.Title>
-            <Table
-              //dataSource={props?.profile?.shift}
-              columns={columns}
-              pagination={false}
-              showHeader={true}
-            />
-            <div className='tw-flex tw-gap-2 tw-flex-col'>
-              <Typography.Title level={5}>Rate</Typography.Title>
-              <Input
-                id='rate'
-                placeholder='Rate'
-                value={props?.profile?.hourlyRate}
-                onChange={handleRateChange}
-                disabled={!edit}
-                className='tw-h-[35px]'
+          <div className='tw-flex tw-flex-col tw-gap-2'>
+            <div className='tw-mb-4'>
+              <Typography.Title level={5}>Schedule</Typography.Title>
+              <Table
+                //dataSource={props?.profile?.shift}
+                columns={columns}
+                pagination={false}
+                showHeader={true}
               />
             </div>
-            <div className='tw-flex tw-gap-2 tw-flex-col'>
+            <div className='tw-flex tw-flex-col tw-mb-2'>
+              
+              <Typography.Title level={5}>Hourly rate (RM)</Typography.Title>
+              {!edit ? (
+                <p className="tw-text-[16px]">{props?.profile?.hourlyRate}</p>
+              ) : (
+                <Input
+                  id='rate'
+                  placeholder='Rate'
+                  value={props?.profile?.hourlyRate}
+                  onChange={handleRateChange}
+                  disabled={!edit}
+                  className='tw-h-[35px]'
+                />
+              )}
+            </div>
+            <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Phone Number</Typography.Title>
-              <Input
-                id='phoneNumber'
-                placeholder='Phone Number'
-                value={props?.profile?.number}
-                onChange={handlePhoneNumberChange}
-                disabled={!edit}
-                className='tw-h-[35px]'
-              />
+              {!edit ? (
+                <p className="tw-text-[16px]">{props?.profile?.number}</p>
+              ) : (
+                <Input
+                  id='phoneNumber'
+                  placeholder='Phone Number'
+                  value={props?.profile?.number}
+                  onChange={handlePhoneNumberChange}
+                  disabled={!edit}
+                  className='tw-h-[35px]'
+                />
+              )}
             </div>
-            <div className='tw-flex tw-gap-2 tw-flex-col'>
+            <div className='tw-flex tw-flex-col tw-mb-2'>
               <Typography.Title level={5}>Roles</Typography.Title>
-              <Select
-                id='values'
-                mode='multiple'
-                placeholder='Select roles'
-                value={props?.profile?.role}
-                onChange={handleDropdownChange}
-                className='tw-h-[35px] tw-w-full'
-                disabled={!edit}
-              >
-                <Select.Option value='Value 1'>Value 1</Select.Option>
-                <Select.Option value='Value 2'>Value 2</Select.Option>
-                <Select.Option value='Value 3'>Value 3</Select.Option>
-              </Select>
+              {!edit ? (
+                <p className="tw-text-[16px]">{props?.profile?.role}</p>
+              ) : (
+                <Select
+                  id='values'
+                  mode='multiple'
+                  placeholder='Select roles'
+                  value={props?.profile?.role}
+                  onChange={handleDropdownChange}
+                  className='tw-h-[35px] tw-w-full'
+                  disabled={!edit}
+                >
+                  <Select.Option value='Value 1'>Value 1</Select.Option>
+                  <Select.Option value='Value 2'>Value 2</Select.Option>
+                  <Select.Option value='Value 3'>Value 3</Select.Option>
+                </Select>
+              )}
             </div>
           </div>
           <Modal

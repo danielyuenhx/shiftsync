@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   UserOutlined,
   CalendarOutlined,
@@ -6,8 +6,8 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, Row, theme } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import logoSingle from '../../assets/logo-single.png';
+import logo from '../assets/logo.png';
+import logoSingle from '../assets/logo-single.png';
 
 interface LayoutProps {
   children: ReactNode;

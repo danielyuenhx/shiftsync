@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Employees from "./components/employees/employees";
-import Dashboard from "./components/dashboard/dashboard";
+import Dashboard from "./components/dashboard";
 import Settings from "./components/settings/settings";
 
 const App = () => {

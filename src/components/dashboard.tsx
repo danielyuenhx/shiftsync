@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import Employees from "../employees/employees";
-import Calendar from "../calendar/calendar";
-import Settings from "../settings/settings";
-import LayoutWithSidebar from "../layoutWithSidebar/layoutWithSidebar";
+import Employees from "./employees/employees";
+import Calendar from "./calendar/calendar";
+import Settings from "./settings/settings";
+import LayoutWithSidebar from "./layoutWithSidebar";
 
 const Dashboard = () => {
   const location = useLocation();
