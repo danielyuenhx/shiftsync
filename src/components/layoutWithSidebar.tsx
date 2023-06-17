@@ -1,14 +1,14 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from "react";
 import {
   UserOutlined,
   CalendarOutlined,
   SettingOutlined,
   UpSquareOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Row, Typography, theme } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../assets/logo.png';
-import logoSingle from '../assets/logo-single.png';
+} from "@ant-design/icons";
+import { Layout, Menu, Row, Typography, theme } from "antd";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/logo.png";
+import logoSingle from "../assets/logo-single.png";
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,14 +26,14 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
 
   const getSelectedKey = () => {
     switch (location.pathname) {
-      case '/employees':
-        return '2';
-      case '/shifts':
-        return '3';
-      case '/settings':
-        return '4';
+      case "/employees":
+        return "2";
+      case "/shifts":
+        return "3";
+      case "/settings":
+        return "4";
       default:
-        return '1';
+        return "1";
     }
   };
 
@@ -42,7 +42,7 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
       <Sider
         collapsible
         width={250}
-        theme='dark'
+        theme="dark"
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
       >
@@ -57,22 +57,22 @@ const LayoutWithSidebar = ({ children }: LayoutProps) => {
           </Link>
         </Row>
         <Menu
-          mode='inline'
+          mode="inline"
           defaultSelectedKeys={[getSelectedKey()]}
-          theme='dark'
-          className='tw-p-4 tw-text-[1rem]'
+          theme="dark"
+          className="tw-p-4 tw-text-[1rem]"
         >
-          <Menu.Item key='1' icon={<CalendarOutlined />}>
-            <Link to='/'>Schedule</Link>
+          <Menu.Item key="1" icon={<CalendarOutlined />}>
+            <Link to="/">Schedule</Link>
           </Menu.Item>
           <Menu.Item key='2' icon={<UserOutlined />}>
             <Link to='/employees'>Employees</Link>
           </Menu.Item>
-          <Menu.Item key='3' icon={<UpSquareOutlined />}>
-            <Link to='/shifts'>Shifts</Link>
+          <Menu.Item key="3" icon={<UpSquareOutlined />}>
+            <Link to="/shifts">Shifts</Link>
           </Menu.Item>
-          <Menu.Item key='4' icon={<SettingOutlined />}>
-            <Link to='/settings'>Settings</Link>
+          <Menu.Item key="4" icon={<SettingOutlined />}>
+            <Link to="/settings">Settings</Link>
           </Menu.Item>
         </Menu>
       </Sider>
