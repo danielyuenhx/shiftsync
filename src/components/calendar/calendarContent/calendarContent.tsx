@@ -14,7 +14,7 @@ import { columns, roleData, states, time, shiftData } from "../../../data/data";
 import CalendarShiftBlock from "../calendarShiftBlock/calendarShiftBlock";
 import { useAppSelector } from "../../../redux/hooks/hooks";
 import { calendarShift } from "../../../redux/slices/shiftSlice";
-
+import { useState } from "react";
 
 const CalendarContent = (props: any) => {
   const shift = useAppSelector(calendarShift);
@@ -57,11 +57,11 @@ const CalendarContent = (props: any) => {
   ];
 
   const renderState = (date: any) => {
-    if (date === "2023-06-17") {
+    if (date === "2023-06-19") {
       return { state: states[0].state, employee: states[0].employee };
-    } else if (date === "2023-06-18") {
+    } else if (date === "2023-06-20") {
       return { state: states[1].state, employee: states[1].employee };
-    } else if (date === "2023-06-19") {
+    } else if (date === "2023-06-21") {
       return { state: states[2].state, employee: states[2].employee };
     } else {
       return { state: states[0].state, employee: states[0].employee };
@@ -69,37 +69,42 @@ const CalendarContent = (props: any) => {
   };
 
   const renderTime = () => {
-    shiftData.map((data) => {
+    return shiftData.map((data) => {
       if (data.title === shift) {
-        console.log("content", data.title);
-        console.log(data.startTime, data.endTime);
-        return data.startTime - data.endTime;
+        return `${data.startTime}:00:00 - ${data.endTime}:00:00`;
       }
     });
-
-    return "";
   };
 
   const state = renderState(props.date);
 
   const [api, contextHolder] = notification.useNotification();
+  const [pressed, setPressed] = useState(false);
 
   const openSuccessNotification = () => {
-    api.success({
-      message: 'Successfully added Shift!',
-      description:
-        'Shift added to the database. Check it out in the Schedule tab.',
-      placement: 'bottomRight',
-    });
+    if (state.state === "Request") {
+      api.info({
+        message: "Requested Shift!",
+        description: "Shift has been requested from employee through WhatsApp!",
+        placement: "bottomRight",
+      });
+    } else {
+      api.success({
+        message: "Successfully approved Shift!",
+        description:
+          "Shift has been approved and sent to employee through WhatsApp!",
+        placement: "bottomRight",
+      });
+    }
+    setPressed(true);
   };
 
-
-
   return (
-    <Row className='tw-w-full tw-justify-around tw-align-top tw-mt-4'>
+    <Row className="tw-w-full tw-justify-around tw-align-top tw-mt-4">
+      {contextHolder}
       <Col span={8}>
-        <div className='tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative'>
-          <div className='tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative'>
+        <div className="tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative">
+          <div className="tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative">
             {shiftData.map((shift, index) => (
               <CalendarShiftBlock
                 blockIndex={index}
@@ -145,7 +150,8 @@ const CalendarContent = (props: any) => {
                   return <Tag color={role.color}>{role.title}</Tag>;
                 })}
               </Row>
-              <Row>
+              <Row className="tw-flex tw-flex-col">
+                <Typography className="tw-font-semibold">Time</Typography>
                 <Typography.Text>{renderTime()}</Typography.Text>
               </Row>
             </Col>
@@ -175,7 +181,8 @@ const CalendarContent = (props: any) => {
         {state.state !== "Pending" && (
           <Button
             onClick={openSuccessNotification}
-            type="text"
+            disabled={pressed}
+            type={pressed ? "default" : "text"}
             className="tw-bg-primary tw-text-white tw-float-right tw-mt-4"
           >
             {state.state === "Request"
