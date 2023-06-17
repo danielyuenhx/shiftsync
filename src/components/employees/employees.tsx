@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import ProfileCard from './profileCard/profileCard';
 import SelectedProfileCard from './selectedProfileCard/selectedProfileCard';
-import { data } from '../../data/data';
 import { Col, Pagination, Row } from 'antd';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import { employeeDetails } from '../../redux/slices/employeeSlice';
 
 interface ProfileProps {
   name: string;
@@ -12,7 +13,9 @@ interface ProfileProps {
 }
 
 const Employees = () => {
-  const [selectedProfile, setSelectedProfile] = useState<any>();
+  const employees = useAppSelector(employeeDetails);
+
+  const [selectedProfile, setSelectedProfile] = useState(employees[0]);
 
   const handleProfileClick = (profile: ProfileProps) => {
     setSelectedProfile(profile);
@@ -28,13 +31,14 @@ const Employees = () => {
   const renderProfiles = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const displayedProfiles = data.slice(startIndex, endIndex);
+    const displayedProfiles = employees.slice(startIndex, endIndex);
+    console.log(displayedProfiles);
 
     return displayedProfiles.map((profile: any) => {
       return (
         <div
-          // key={profile.name}
-          className="tw-w-full cursor-pointer"
+          key={profile.id}
+          className='tw-w-full cursor-pointer'
           onClick={() => handleProfileClick(profile)}
         >
           <ProfileCard profile={profile} />
@@ -45,14 +49,11 @@ const Employees = () => {
 
   return (
     <Row className='tw-gap-6'>
-      <Col
-        span={8}
-        className='tw-flex tw-flex-col tw-gap-4 tw-items-center'
-      >
+      <Col span={8} className='tw-flex tw-flex-col tw-gap-4 tw-items-center'>
         {renderProfiles()}
         <Pagination
           defaultCurrent={currentPage}
-          total={data.length}
+          total={employees.length}
           pageSize={itemsPerPage}
           onChange={handlePageChange}
         />

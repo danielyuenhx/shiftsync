@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-import * as API from "../../api/index";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
+import * as API from '../../api/index';
 
 export interface ShiftState {
   data: any;
@@ -15,15 +15,18 @@ const initialState: ShiftState = {
 };
 
 export const shiftSlice = createSlice({
-  name: "shift",
+  name: 'shift',
   initialState,
 
   reducers: {
     updateCalendarShift: (state, action: PayloadAction<any>) => {
       state.calendarShift = action.payload;
     },
-    updateShiftData: (state, action: PayloadAction<any>) => {
+    setShifts: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
+    },
+    updateShiftData: (state, action: PayloadAction<any>) => {
+      state.data = [...state.data, ...action.payload];
     },
     updateSelectedShift: (state, action: PayloadAction<any>) => {
       state.selectedShift = action.payload;
@@ -35,7 +38,7 @@ export function getShifts(dispatch: any) {
   API.fetchShifts()
     .then((response) => {
       const data = response?.data?.data;
-      dispatch(updateShiftData(data));
+      dispatch(setShifts(data));
     })
     .catch((error) => {
       console.error(error);
@@ -43,7 +46,7 @@ export function getShifts(dispatch: any) {
     });
 }
 
-export function createShifts(
+export async function createShifts(
   dispatch: any,
   data: {
     name: string;
@@ -59,27 +62,26 @@ export function createShifts(
     roles: Array<object>;
   }
 ) {
-  API.createShifts(
-    data.name,
-    data.startTime,
-    data.endTime,
-    data.monday,
-    data.tuesday,
-    data.wednesday,
-    data.thursday,
-    data.friday,
-    data.saturday,
-    data.sunday,
-    data.roles
-  )
-    .then((response) => {
-      const data = response?.data?.data;
-      dispatch(updateShiftData(data));
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
+  try {
+    const response = await API.createShifts(
+      data.name,
+      data.startTime,
+      data.endTime,
+      data.monday,
+      data.tuesday,
+      data.wednesday,
+      data.thursday,
+      data.friday,
+      data.saturday,
+      data.sunday,
+      data.roles
+    );
+    const fetched = response?.data?.data;
+    dispatch(updateShiftData(fetched));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export function getShiftsByDate(dispatch: any, data: any) {
@@ -95,7 +97,7 @@ export function getShiftsByDate(dispatch: any, data: any) {
     });
 }
 
-export const { updateShiftData, updateSelectedShift, updateCalendarShift } =
+export const { setShifts, updateShiftData, updateSelectedShift, updateCalendarShift } =
   shiftSlice.actions;
 
 export const shiftDetails = (state: RootState) => state.shift.data;
