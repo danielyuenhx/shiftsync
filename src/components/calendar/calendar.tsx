@@ -1,26 +1,24 @@
-import { useState } from 'react';
-import {
-  Calendar as AntCalendar,
-  Card,
-  Breadcrumb,
-  Typography,
-  Alert,
-} from 'antd';
-import type { Dayjs } from 'dayjs';
-import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
-import CalendarContent from './calendarContent/calendarContent';
-import CalendarLogs from './calendarLogs/calendarLogs';
+import { useState } from "react";
+import { Calendar as AntCalendar, Card, Breadcrumb } from "antd";
+import type { Dayjs } from "dayjs";
+import CalendarContent from "./calendarContent/calendarContent";
+import CalendarLogs from "./calendarLogs/calendarLogs";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { getShiftsByDate } from "../../redux/slices/shiftSlice";
 
 const Calendar = () => {
+  const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState<Dayjs | undefined>(
     undefined
   );
 
-  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
+  const onPanelChange = (value: Dayjs) => {
     console.log(value);
   };
 
-  const selectDateHandler = (e: Dayjs) => {
+  const selectDateHandler = (e: any) => {
+    const date = e.format("YYYY-MM-DD")
+    getShiftsByDate(dispatch, date);
     setSelectedDate(e);
   };
 
@@ -32,8 +30,8 @@ const Calendar = () => {
     if (selectedDate) {
       return (
         <>
-          <CalendarContent date={selectedDate.format('YYYY-MM-DD')} />
-          <CalendarLogs date={selectedDate.format('YYYY-MM-DD')} />
+          <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />
+          <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
         </>
       );
     }
@@ -66,14 +64,14 @@ const Calendar = () => {
   const breadcrumbItems = selectedDate
     ? [
         <Breadcrumb.Item
-          key='calendar'
+          key="calendar"
           onClick={removeDateHandler}
-          className='tw-cursor-pointer'
+          className="tw-cursor-pointer"
         >
-          {selectedDate.format('MMMM')}
+          {selectedDate.format("MMMM")}
         </Breadcrumb.Item>,
-        <Breadcrumb.Item key='selectedDate'>
-          {selectedDate.format('YYYY-MM-DD')}
+        <Breadcrumb.Item key="selectedDate">
+          {selectedDate.format("YYYY-MM-DD")}
         </Breadcrumb.Item>,
       ]
     : [
@@ -83,7 +81,7 @@ const Calendar = () => {
       ];
 
   return (
-    <Card className=''>
+    <Card className="">
       <Breadcrumb>{breadcrumbItems}</Breadcrumb>
       {!selectedDate && (
         <AntCalendar

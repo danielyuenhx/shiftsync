@@ -5,11 +5,13 @@ import * as API from "../../api/index";
 export interface ShiftState {
   data: any;
   selectedShift: any;
+  calendarShift: string;
 }
 
 const initialState: ShiftState = {
   data: [],
   selectedShift: [],
+  calendarShift: "Morning Shift",
 };
 
 export const shiftSlice = createSlice({
@@ -17,6 +19,9 @@ export const shiftSlice = createSlice({
   initialState,
 
   reducers: {
+    updateCalendarShift: (state, action: PayloadAction<any>) => {
+      state.calendarShift = action.payload;
+    },
     updateShiftData: (state, action: PayloadAction<any>) => {
       state.data = action.payload;
     },
@@ -77,10 +82,11 @@ export function createShifts(
     });
 }
 
-export function getShiftsByDate(dispatch: any, data: { date: string }) {
-  API.fetchShiftByDate(data.date)
+export function getShiftsByDate(dispatch: any, data: any) {
+  API.fetchShiftByDate(data)
     .then((response) => {
       const data = response?.data?.data;
+      console.log(data);
       dispatch(updateSelectedShift(data));
     })
     .catch((error) => {
@@ -89,9 +95,11 @@ export function getShiftsByDate(dispatch: any, data: { date: string }) {
     });
 }
 
-export const { updateShiftData, updateSelectedShift } = shiftSlice.actions;
+export const { updateShiftData, updateSelectedShift, updateCalendarShift } =
+  shiftSlice.actions;
 
 export const shiftDetails = (state: RootState) => state.shift.data;
 export const selectedShift = (state: RootState) => state.shift.selectedShift;
+export const calendarShift = (state: RootState) => state.shift.calendarShift;
 
 export default shiftSlice.reducer;

@@ -10,9 +10,7 @@ const API = axios.create({
 
 // SHIFTS API
 export const fetchShifts = () => API.get(`/shifts`);
-export const fetchShiftByDate = (date: string) =>
-  API.post(`/shifts`, { date: date });
-  
+export const fetchShiftByDate = (date: string) => API.get(`/shifts/${date}`);
 export const createShifts = (
   name: string,
   startTime: string,
