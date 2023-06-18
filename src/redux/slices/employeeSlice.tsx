@@ -39,21 +39,19 @@ interface data {
   roleIds: number;
 }
 
-export function createEmployees(dispatch: any, data: data) {
-  API.createEmployees(
-    data.name,
-    data.phoneNumber,
-    data.hourlyRate,
-    data.roleIds
-  )
-    .then((response) => {
-      const data = response?.data?.data;
-      dispatch(updateEmployeeData(data));
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
+export async function createEmployees(dispatch: any, data: data) {
+  try {
+    const response = await API.createEmployees(
+      data.name,
+      data.phoneNumber,
+      data.hourlyRate,
+      data.roleIds
+    );
+    dispatch(updateEmployeeData(response?.data?.data));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export const { updateEmployeeData } = employeeSlice.actions;

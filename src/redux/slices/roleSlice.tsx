@@ -37,17 +37,14 @@ interface data {
   name: string;
 }
 
-export function createRoles(dispatch: any, data: data) {
-  API.createRoles(data.name)
-    .then((response) => {
-      console.log(response)
-      const data = response?.data?.data;
-      dispatch(updateRoleData(data));
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
+export async function createRoles(dispatch: any, data: data) {
+  try {
+    const response = await API.createRoles(data.name);
+    dispatch(updateRoleData(response?.data?.data));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export const { updateRoleData } = roleSlice.actions;

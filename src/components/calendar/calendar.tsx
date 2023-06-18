@@ -3,21 +3,22 @@ import { Calendar as AntCalendar, Card, Breadcrumb } from "antd";
 import type { Dayjs } from "dayjs";
 import CalendarContent from "./calendarContent/calendarContent";
 import CalendarLogs from "./calendarLogs/calendarLogs";
-import { useAppDispatch } from "../../redux/hooks/hooks";
-import { getShiftsByDate } from "../../redux/slices/shiftSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { getShiftsByDate, showLogs } from "../../redux/slices/shiftSlice";
 
 const Calendar = () => {
   const dispatch = useAppDispatch();
   const [selectedDate, setSelectedDate] = useState<Dayjs | undefined>(
     undefined
   );
+  const showLogsState = useAppSelector(showLogs);
 
   const onPanelChange = (value: Dayjs) => {
     console.log(value);
   };
 
   const selectDateHandler = (e: any) => {
-    const date = e.format("YYYY-MM-DD")
+    const date = e.format("YYYY-MM-DD");
     getShiftsByDate(dispatch, date);
     setSelectedDate(e);
   };
@@ -31,7 +32,9 @@ const Calendar = () => {
       return (
         <>
           <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />
-          <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
+          {showLogsState && (
+            <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
+          )}
         </>
       );
     }

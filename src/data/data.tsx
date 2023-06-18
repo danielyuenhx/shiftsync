@@ -593,7 +593,7 @@ export const states = [
     date: "2023-06-19",
     logs: [
       {
-        label: "2023-09-01",
+        label: "2023-06-19",
         children: "Manager requested for schedule from employees",
       },
     ],
@@ -635,11 +635,11 @@ export const states = [
     date: "2023-06-20",
     logs: [
       {
-        label: "2023-09-01",
+        label: "2023-06-20",
         children: "Manager requested for schedule from employees",
       },
       {
-        label: "2023-07-05",
+        label: "2023-06-20",
         children: "Jason submitted his schedule",
       },
       {
@@ -690,11 +690,11 @@ export const states = [
     date: "2023-06-21",
     logs: [
       {
-        label: "2023-09-01",
+        label: "2023-06-19",
         children: "Manager requested for schedule from employees",
       },
       {
-        label: "2023-07-05",
+        label: "2023-06-20",
         children: "Jason submitted his schedule",
       },
       {
@@ -707,12 +707,12 @@ export const states = [
         children: "Mason submitted his schedule",
       },
       {
-        label: "2023-07-06",
-        children: "All employees submitted and schedule released",
+        label: "2023-06-21",
+        children: "All employees submitted",
       },
       {
-        label: "2023-07-08",
-        children: "Manager approved schedule",
+        label: "2023-06-21",
+        children: "Manager approved schedule and schedule released",
       },
     ],
     employee: [

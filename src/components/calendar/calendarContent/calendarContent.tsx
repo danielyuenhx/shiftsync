@@ -12,17 +12,22 @@ import {
 } from "antd";
 import { columns, roleData, states, time, shiftData } from "../../../data/data";
 import CalendarShiftBlock from "../calendarShiftBlock/calendarShiftBlock";
-import { useAppSelector } from "../../../redux/hooks/hooks";
-import { calendarShift } from "../../../redux/slices/shiftSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import {
+  calendarShift,
+  updateShowLogs,
+} from "../../../redux/slices/shiftSlice";
 import { useState } from "react";
+import { ClockCircleOutlined } from "@ant-design/icons";
 
 const CalendarContent = (props: any) => {
   const shift = useAppSelector(calendarShift);
+  const [pressed, setPressed] = useState(false);
 
   const request = [
     {
       children: "Send request",
-      color: "green",
+      color: pressed ? "green" : "#A7C7E7",
     },
     {
       children: "Pending replies",
@@ -39,6 +44,14 @@ const CalendarContent = (props: any) => {
       children: "Send request",
       color: "green",
     },
+    {
+      dot: <ClockCircleOutlined style={{ fontSize: "16px", color: "blue" }} />,
+      children: "Pending replies",
+    },
+    {
+      children: "Ready for approval",
+      color: "gray",
+    },
   ];
 
   const ready = [
@@ -51,8 +64,8 @@ const CalendarContent = (props: any) => {
       color: "green",
     },
     {
-      children: "Ready for approval",
-      color: "green",
+      children: pressed ? "Approved" : "Ready for approval",
+      color: pressed ? "green" : "#A7C7E7",
     },
   ];
 
@@ -77,9 +90,8 @@ const CalendarContent = (props: any) => {
   };
 
   const state = renderState(props.date);
-
+  const dispatch = useAppDispatch();
   const [api, contextHolder] = notification.useNotification();
-  const [pressed, setPressed] = useState(false);
 
   const openSuccessNotification = () => {
     if (state.state === "Request") {
@@ -90,13 +102,14 @@ const CalendarContent = (props: any) => {
       });
     } else {
       api.success({
-        message: "Successfully approved Shift!",
+        message: "Day has been approved!",
         description:
-          "Shift has been approved and sent to employee through WhatsApp!",
+          "Day has been approved and sent to employee through WhatsApp!",
         placement: "bottomRight",
       });
     }
     setPressed(true);
+    dispatch(updateShowLogs(true));
   };
 
   return (
@@ -187,7 +200,7 @@ const CalendarContent = (props: any) => {
           >
             {state.state === "Request"
               ? "Request shift availability"
-              : "Approve shift"}
+              : "Approve Day"}
           </Button>
         )}
       </Col>

@@ -1,10 +1,19 @@
 import { useState } from "react";
-import { Input, Typography, Tag, Button, Card, Modal, Row } from "antd";
+import {
+  Input,
+  Typography,
+  Tag,
+  Button,
+  Card,
+  Modal,
+  Row,
+  notification,
+} from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { createRoles, roleDetails } from "../../../redux/slices/roleSlice";
 
-const roles = ['Cashier', 'Waiter', 'Barista'];
+const roles = ["Cashier", "Waiter", "Barista"];
 
 const AddRoleCard = () => {
   // const roles = useAppSelector(roleDetails);
@@ -17,8 +26,8 @@ const AddRoleCard = () => {
       return "red";
     } else if (role === "Barista") {
       return "blue";
-    } else if (role === "Janitor"){
-      return "purple"
+    } else if (role === "Janitor") {
+      return "purple";
     }
   };
 
@@ -30,7 +39,7 @@ const AddRoleCard = () => {
 
   const showConfirmationModal = (e: any, role: string) => {
     setModalVisible(true);
-    e.preventDefaul();
+    e.preventDefault();
     setDeleteRole(role);
   };
 
@@ -40,21 +49,32 @@ const AddRoleCard = () => {
 
     // Close the modal and reset deleteRole state
     setModalVisible(false);
-    setDeleteRole('');
+    setDeleteRole("");
   };
 
   const handleCancel = () => {
     // Close the modal and reset deleteRole state
     setModalVisible(false);
-    setDeleteRole('');
+    setDeleteRole("");
   };
 
   const addNewRole = (e: any) => {
     setNewRole(e.target.value);
   };
 
-  const saveHandler = () => {
-    createRoles(dispatch, { name: newRole });
+  const saveHandler = async () => {
+    await createRoles(dispatch, { name: newRole });
+    openSuccessNotification();
+  };
+
+  const [api, contextHolder] = notification.useNotification();
+
+  const openSuccessNotification = () => {
+    api.success({
+      message: "Successfully added Role!",
+      description: "Role added to the database.",
+      placement: "bottomRight",
+    });
   };
 
   return (
@@ -62,11 +82,12 @@ const AddRoleCard = () => {
       bordered={false}
       className="tw-w-[40%]"
       title={
-        <Typography.Title level={5} className='tw-mt-2'>
+        <Typography.Title level={5} className="tw-mt-2">
           Add Roles
         </Typography.Title>
       }
     >
+      {contextHolder}
       <Row className="tw-mb-4">
         {roles.map((role: any) => {
           return (
@@ -89,10 +110,10 @@ const AddRoleCard = () => {
       </Row>
 
       <Input
-        id='roles'
-        placeholder='Add Roles'
+        id="roles"
+        placeholder="Add Roles"
         onChange={addNewRole}
-        style={{ height: '35px' }}
+        style={{ height: "35px" }}
       />
 
       <Row className="tw-justify-end tw-mt-4">
@@ -100,11 +121,11 @@ const AddRoleCard = () => {
       </Row>
 
       <Modal
-        title='Confirm Deletion'
+        title="Confirm Deletion"
         open={modalVisible}
         onOk={(e) => handleDeleteRole(e)}
         onCancel={handleCancel}
-        okText='Delete'
+        okText="Delete"
         okButtonProps={{ danger: true }}
       >
         <p>Are you sure you want to delete the role?</p>

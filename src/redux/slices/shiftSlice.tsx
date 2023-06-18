@@ -6,12 +6,15 @@ export interface ShiftState {
   data: any;
   selectedShift: any;
   calendarShift: string;
+  // TO BE REMOVED
+  showLogs: boolean;
 }
 
 const initialState: ShiftState = {
   data: [],
   selectedShift: [],
   calendarShift: "Morning Shift",
+  showLogs: false
 };
 
 export const shiftSlice = createSlice({
@@ -30,6 +33,9 @@ export const shiftSlice = createSlice({
     },
     updateSelectedShift: (state, action: PayloadAction<any>) => {
       state.selectedShift = action.payload;
+    },
+    updateShowLogs: (state, action: PayloadAction<any>) => {
+      state.showLogs = action.payload;
     },
   },
 });
@@ -97,11 +103,12 @@ export function getShiftsByDate(dispatch: any, data: any) {
     });
 }
 
-export const { setShifts, updateShiftData, updateSelectedShift, updateCalendarShift } =
+export const { setShifts, updateShiftData, updateSelectedShift, updateCalendarShift, updateShowLogs } =
   shiftSlice.actions;
 
 export const shiftDetails = (state: RootState) => state.shift.data;
 export const selectedShift = (state: RootState) => state.shift.selectedShift;
 export const calendarShift = (state: RootState) => state.shift.calendarShift;
+export const showLogs = (state: RootState) => state.shift.showLogs;
 
 export default shiftSlice.reducer;
