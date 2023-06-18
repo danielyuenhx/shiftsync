@@ -661,12 +661,12 @@ export const states = [
       {
         name: "Jane Smith",
         role: "Waiter",
-        approvalState: <Badge status="warning" text="Pending" />,
+        approvalState: <Badge status="success" text="Approved" />,
       },
       {
         name: "Bob Johnson",
         role: "Barista",
-        approvalState: <Badge status="success" text="Pending" />,
+        approvalState: <Badge status="warning" text="Pending" />,
       },
       {
         name: "Jason Doe",
@@ -676,12 +676,12 @@ export const states = [
       {
         name: "Mary Jane",
         role: "Waiter",
-        approvalState: <Badge status="warning" text="Pending" />,
+        approvalState: <Badge status="success" text="Approved" />,
       },
       {
         name: "Johnson Mike",
         role: "Cashier",
-        approvalState: <Badge status="error" text="Rejected" />,
+        approvalState: <Badge status="success" text="Approved" />,
       },
     ],
   },
