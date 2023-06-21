@@ -13,7 +13,6 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log("ran");
     getShifts(dispatch);
     getEmployees(dispatch);
     getRoles(dispatch);

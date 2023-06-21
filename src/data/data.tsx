@@ -1,4 +1,5 @@
-import { Badge } from "antd";
+import { Badge, Tag } from "antd";
+import useTagColor from "../redux/hooks/tagColor";
 
 export const data = [
   {
@@ -495,24 +496,6 @@ export const data = [
   },
 ];
 
-export const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
-  },
-  {
-    title: "Approval State",
-    dataIndex: "approvalState",
-    key: "approvalState",
-  },
-];
-
 export const time = [
   "12am",
   "1am",
@@ -546,18 +529,21 @@ export const shiftData = [
     startTime: 8,
     endTime: 18,
     colour: "#ff6961",
+    shiftId: 2,
   },
   {
     title: "Afternoon Shift",
     startTime: 12,
     endTime: 22,
     colour: "#8be1e7",
+    shiftId: 3,
   },
   {
     title: "Full-day",
     startTime: 8,
     endTime: 22,
     colour: "#fcecb2",
+    shiftId: 4,
   },
 ];
 
@@ -744,6 +730,538 @@ export const states = [
       {
         name: "Johnson Mike",
         role: "Cashiers",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+];
+
+// FOR FINAL DEMO
+export const tableData = [
+  {
+    state: "Request",
+    roles: ["2 Barista", "2 Cashiers", "2 Waiters"],
+    shiftId: 1,
+    shift: "2023/06/25",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+      },
+      {
+        name: "Bob Johnson",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+      },
+      {
+        name: "Johnson Mike",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+      },
+    ],
+  },
+  {
+    state: "Requested",
+    shiftId: 2,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Morning Shift (10am to 6pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+    ],
+  },
+  {
+    state: "Requested",
+    shiftId: 3,
+    roles: ["2 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Afternoon Shift (12pm to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+    ],
+  },
+  {
+    state: "Requested",
+    shiftId: 4,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Full-Day (10am to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="warning" text="Pending" />,
+      },
+    ],
+  },
+
+  {
+    state: "Pending",
+    shiftId: 2,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Morning Shift (10am to 6pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+  {
+    state: "Pending",
+    shiftId: 3,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Afternoon Shift (12pm to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+  {
+    state: "Pending",
+    shiftId: 4,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Full-Day (10am to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="error" text="Rejected" />,
+      },
+    ],
+  },
+  {
+    state: "Pending",
+    shiftId: 5,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    shift: "Full-Day (10am to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+
+  {
+    state: "Approved",
+    shiftId: 2,
+    shift: "Morning Shift (10am to 6pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Bob Johnson",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: "Cashier",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Johnson Mike",
+        role: "Cashier",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+  {
+    state: "Approved",
+    shiftId: 3,
+    shift: "Afternoon Shift (12pm to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Bob Johnson",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: "Cashier",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Johnson Mike",
+        role: "Cashier",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+    ],
+  },
+  {
+    state: "Approved",
+    shiftId: 4,
+    shift: "Full-Day (10am to 10pm)",
+    columns: [
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+      },
+      {
+        title: "Role",
+        dataIndex: "role",
+        key: "role",
+      },
+      {
+        title: "State",
+        dataIndex: "state",
+        key: "state",
+      },
+    ],
+    employee: [
+      {
+        name: "John Doe",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jane Smith",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Bob Johnson",
+        role: "Barista",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Jason Doe",
+        role: "Cashier",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Mary Jane",
+        role: "Waiter",
+        approvalState: <Badge status="success" text="Approved" />,
+      },
+      {
+        name: "Johnson Mike",
+        role: "Cashier",
         approvalState: <Badge status="success" text="Approved" />,
       },
     ],

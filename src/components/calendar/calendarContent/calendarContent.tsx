@@ -1,120 +1,31 @@
-import {
-  Button,
-  Card,
-  Col,
-  Divider,
-  Row,
-  Table,
-  Tag,
-  Timeline,
-  Typography,
-  notification,
-} from "antd";
-import { columns, roleData, states, time, shiftData } from "../../../data/data";
+import { Col, Divider, Row } from "antd";
+import { time, shiftData, tableData } from "../../../data/data";
 import CalendarShiftBlock from "../calendarShiftBlock/calendarShiftBlock";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import {
-  calendarShift,
-  updateShowLogs,
-} from "../../../redux/slices/shiftSlice";
-import { useState } from "react";
-import { ClockCircleOutlined } from "@ant-design/icons";
+import { useAppSelector } from "../../../redux/hooks/hooks";
+import ShiftCard from "./shiftCard/shiftCard";
+import { shiftId, state } from "../../../redux/slices/shiftSlice";
+import { useEffect, useState } from "react";
 
-const CalendarContent = (props: any) => {
-  const shift = useAppSelector(calendarShift);
-  const [pressed, setPressed] = useState(false);
+const CalendarContent = () => {
+  const [contentData, setContentData] = useState<any>(
+    getTableDataByStateAndShiftId("Request", 1)
+  );
+  function getTableDataByStateAndShiftId(state: string, shiftId: number) {
+    return tableData.find(
+      (item) => item.state === state && item.shiftId === shiftId
+    );
+  }
 
-  const request = [
-    {
-      children: "Send request",
-      color: pressed ? "green" : "#A7C7E7",
-    },
-    {
-      children: "Pending replies",
-      color: "gray",
-    },
-    {
-      children: "Ready for approval",
-      color: "gray",
-    },
-  ];
+  const selectedState = useAppSelector(state);
+  const selectedShiftId = useAppSelector(shiftId);
 
-  const pending = [
-    {
-      children: "Send request",
-      color: "green",
-    },
-    {
-      dot: <ClockCircleOutlined style={{ fontSize: "16px", color: "blue" }} />,
-      children: "Pending replies",
-    },
-    {
-      children: "Ready for approval",
-      color: "gray",
-    },
-  ];
-
-  const ready = [
-    {
-      children: "Send request",
-      color: "green",
-    },
-    {
-      children: "Pending replies",
-      color: "green",
-    },
-    {
-      children: pressed ? "Approved" : "Ready for approval",
-      color: pressed ? "green" : "#A7C7E7",
-    },
-  ];
-
-  const renderState = (date: any) => {
-    if (date === "2023-06-19") {
-      return { state: states[0].state, employee: states[0].employee };
-    } else if (date === "2023-06-20") {
-      return { state: states[1].state, employee: states[1].employee };
-    } else if (date === "2023-06-21") {
-      return { state: states[2].state, employee: states[2].employee };
-    } else {
-      return { state: states[0].state, employee: states[0].employee };
-    }
-  };
-
-  const renderTime = () => {
-    return shiftData.map((data) => {
-      if (data.title === shift) {
-        return `${data.startTime}:00:00 - ${data.endTime}:00:00`;
-      }
-    });
-  };
-
-  const state = renderState(props.date);
-  const dispatch = useAppDispatch();
-  const [api, contextHolder] = notification.useNotification();
-
-  const openSuccessNotification = () => {
-    if (state.state === "Request") {
-      api.info({
-        message: "Requested Shift!",
-        description: "Shift has been requested from employee through WhatsApp!",
-        placement: "bottomRight",
-      });
-    } else {
-      api.success({
-        message: "Day has been approved!",
-        description:
-          "Day has been approved and sent to employee through WhatsApp!",
-        placement: "bottomRight",
-      });
-    }
-    setPressed(true);
-    dispatch(updateShowLogs(true));
-  };
+  useEffect(() => {
+    const data = getTableDataByStateAndShiftId(selectedState, selectedShiftId);
+    setContentData(data);
+  }, [selectedState, selectedShiftId]);
 
   return (
     <Row className="tw-w-full tw-justify-around tw-align-top tw-mt-4">
-      {contextHolder}
       <Col span={8}>
         <div className="tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative">
           <div className="tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative">
@@ -125,6 +36,8 @@ const CalendarContent = (props: any) => {
                 endTime={shift.endTime}
                 colour={shift.colour}
                 shiftName={shift.title}
+                shiftId={shift.shiftId}
+                selectedState={selectedState}
               />
             ))}
             {time.map((time) => (
@@ -134,75 +47,7 @@ const CalendarContent = (props: any) => {
         </div>
       </Col>
       <Col span={15}>
-        <Card
-          className="tw-h-auto"
-          title={
-            <Row className="tw-items-center !tw-min-h-[60px]">
-              <Typography.Title level={3} className="!tw-m-0">
-                {shift}
-              </Typography.Title>
-            </Row>
-          }
-        >
-          <div>
-            <Col className="tw-h-[150px]">
-              <Timeline
-                className="tw-absolute tw-right-10 tw-w-[500px] tw-mt-4"
-                pending={state.state === "Pending" && "Pending replies"}
-                mode="right"
-                items={
-                  state.state === "Pending"
-                    ? pending
-                    : state.state === "Ready"
-                    ? ready
-                    : request
-                }
-              />
-              <Row className="tw-h-6 tw-mb-4">
-                {roleData.map((role) => {
-                  return <Tag color={role.color}>{role.title}</Tag>;
-                })}
-              </Row>
-              <Row className="tw-flex tw-flex-col">
-                <Typography className="tw-font-semibold">Time</Typography>
-                <Typography.Text>{renderTime()}</Typography.Text>
-              </Row>
-            </Col>
-
-            {/* <List
-              className="tw-mb-4"
-              itemLayout="horizontal"
-              dataSource={roleData}
-              renderItem={(item, index) => (
-                <List.Item>
-                  <List.Item.Meta
-                    className="tw-font-semibold"
-                    title={item.title}
-                  />
-                </List.Item>
-              )}
-            /> */}
-
-            {/* Employees */}
-            <Table
-              dataSource={state.employee}
-              columns={columns}
-              pagination={false}
-            />
-          </div>
-        </Card>
-        {state.state !== "Pending" && (
-          <Button
-            onClick={openSuccessNotification}
-            disabled={pressed}
-            type={pressed ? "default" : "text"}
-            className="tw-bg-primary tw-text-white tw-float-right tw-mt-4"
-          >
-            {state.state === "Request"
-              ? "Request shift availability"
-              : "Approve Day"}
-          </Button>
-        )}
+        <ShiftCard contentData={contentData} />
       </Col>
     </Row>
   );

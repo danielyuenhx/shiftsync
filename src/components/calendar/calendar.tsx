@@ -4,7 +4,7 @@ import type { Dayjs } from "dayjs";
 import CalendarContent from "./calendarContent/calendarContent";
 import CalendarLogs from "./calendarLogs/calendarLogs";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { getShiftsByDate, showLogs } from "../../redux/slices/shiftSlice";
+import { getShiftsByDate, shiftId, showLogs, state } from "../../redux/slices/shiftSlice";
 
 const Calendar = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const Calendar = () => {
     if (selectedDate) {
       return (
         <>
-          <CalendarContent date={selectedDate.format("YYYY-MM-DD")} />
+          <CalendarContent />
           {showLogsState && (
             <CalendarLogs date={selectedDate.format("YYYY-MM-DD")} />
           )}
