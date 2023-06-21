@@ -740,6 +740,11 @@ export const states = [
 export const tableData = [
   {
     state: "Request",
+    timeline: [
+      { children: "Request availability", color: "gray" },
+      { children: "Replies from employee", color: "gray" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     roles: ["2 Barista", "2 Cashiers", "2 Waiters"],
     shiftId: 1,
     shift: "2023/06/25",
@@ -784,6 +789,11 @@ export const tableData = [
   },
   {
     state: "Requested",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "gray" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 2,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Morning Shift (10am to 6pm)",
@@ -829,6 +839,11 @@ export const tableData = [
   },
   {
     state: "Requested",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "gray" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 3,
     roles: ["2 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Afternoon Shift (12pm to 10pm)",
@@ -879,6 +894,11 @@ export const tableData = [
   },
   {
     state: "Requested",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "gray" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 4,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Full-Day (10am to 10pm)",
@@ -925,6 +945,11 @@ export const tableData = [
 
   {
     state: "Pending",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 2,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Morning Shift (10am to 6pm)",
@@ -970,6 +995,11 @@ export const tableData = [
   },
   {
     state: "Pending",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 3,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Afternoon Shift (12pm to 10pm)",
@@ -1015,6 +1045,11 @@ export const tableData = [
   },
   {
     state: "Pending",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replacement needed", color: "red" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 4,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Full-Day (10am to 10pm)",
@@ -1060,6 +1095,11 @@ export const tableData = [
   },
   {
     state: "Pending",
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "gray" },
+    ],
     shiftId: 5,
     roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
     shift: "Full-Day (10am to 10pm)",
@@ -1107,6 +1147,12 @@ export const tableData = [
   {
     state: "Approved",
     shiftId: 2,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "green" },
+    ],
     shift: "Morning Shift (10am to 6pm)",
     columns: [
       {
@@ -1128,39 +1174,35 @@ export const tableData = [
     employee: [
       {
         name: "John Doe",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jane Smith",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Bob Johnson",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jason Doe",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Mary Jane",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Johnson Mike",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
     ],
   },
   {
     state: "Approved",
     shiftId: 3,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "green" },
+    ],
     shift: "Afternoon Shift (12pm to 10pm)",
     columns: [
       {
@@ -1182,39 +1224,35 @@ export const tableData = [
     employee: [
       {
         name: "John Doe",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jane Smith",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Bob Johnson",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jason Doe",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Mary Jane",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Johnson Mike",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
     ],
   },
   {
     state: "Approved",
     shiftId: 4,
+    roles: ["1 Barista", "1 Cashiers", "2 Waiters"],
+    timeline: [
+      { children: "Request availability", color: "green" },
+      { children: "Replies from employee", color: "green" },
+      { children: "Schedule approved", color: "green" },
+    ],
     shift: "Full-Day (10am to 10pm)",
     columns: [
       {
@@ -1236,33 +1274,23 @@ export const tableData = [
     employee: [
       {
         name: "John Doe",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Barista")}>Barista</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jane Smith",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Bob Johnson",
-        role: "Barista",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Jason Doe",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Cashier")}>Cashier</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
       {
         name: "Mary Jane",
-        role: "Waiter",
-        approvalState: <Badge status="success" text="Approved" />,
-      },
-      {
-        name: "Johnson Mike",
-        role: "Cashier",
-        approvalState: <Badge status="success" text="Approved" />,
+        role: <Tag color={useTagColor("Waiter")}>Waiter</Tag>,
+        state: <Badge status="success" text="Approved" />,
       },
     ],
   },
