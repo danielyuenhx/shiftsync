@@ -69,7 +69,8 @@ const ShiftCard = (props: any) => {
   };
 
   const selectAfter = (
-    <Select defaultValue="Hours">
+    <Select defaultValue="Seconds">
+      <Select.Option value="Seconds">Seconds</Select.Option>
       <Select.Option value="Minutes">Minutes</Select.Option>
       <Select.Option value="Hours">Hours</Select.Option>
       <Select.Option value="Days">Days</Select.Option>
@@ -152,7 +153,7 @@ const ShiftCard = (props: any) => {
 
         <div className="tw-flex tw-gap-4 tw-justify-end tw-mt-4">
           {state === "START" && (
-            <InputNumber addonAfter={selectAfter} defaultValue={10} />
+            <InputNumber addonAfter={selectAfter} defaultValue={15} />
           )}
 
           {showButton && (
