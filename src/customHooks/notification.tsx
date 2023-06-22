@@ -1,0 +1,57 @@
+import { notification } from "antd";
+import { useEffect } from "react";
+
+type Type = "APPROVAL" | "REJECTED" | "PENDING";
+
+interface NotificationProps {
+  type: Type;
+  trigger: any;
+  setShowNotification: (value: boolean) => void;
+}
+
+const notificationRender = (type: Type, api: any) => {
+  switch (type) {
+    case "PENDING":
+      return api.info({
+        message: "Availability Requested",
+        description:
+          "The WhatsApp bot has requested the availability from employees!",
+        placement: "bottomRight",
+      });
+    case "APPROVAL":
+      return api.success({
+        message: "Schedule Approved",
+        description:
+          "Schedule for the day has been approved and is downloadable!",
+        placement: "bottomRight",
+      });
+    case "REJECTED":
+      return api.warning({
+        message: "Replacement Needed",
+        description: "Don't Worry, the WhatsApp bot will help to look for it!",
+        placement: "bottomRight",
+      });
+    default:
+      return null;
+  }
+};
+
+const Notification = (props: NotificationProps) => {
+  const [api, contextHolder] = notification.useNotification();
+
+  useEffect(() => {
+    if (
+      (props.trigger && props.type === "PENDING") ||
+      (props.trigger && props.type === "APPROVAL") ||
+      props.type === "REJECTED"
+    ) {
+      notificationRender(props.type, api);
+
+      props.setShowNotification(false);
+    }
+  }, [props.trigger, props.type]);
+
+  return <div>{contextHolder}</div>;
+};
+
+export default Notification;

@@ -8,6 +8,7 @@ import { getShifts } from "./redux/slices/shiftSlice";
 import { useAppDispatch } from "./redux/hooks/hooks";
 import { getEmployees } from "./redux/slices/employeeSlice";
 import { getRoles } from "./redux/slices/roleSlice";
+import { updateShift, updateState } from "./redux/slices/demoSlice";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,8 @@ const App = () => {
     getShifts(dispatch);
     getEmployees(dispatch);
     getRoles(dispatch);
+    dispatch(updateShift("MORNING"));
+    dispatch(updateState("START"));
   }, []);
 
   return (

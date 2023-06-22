@@ -1,5 +1,5 @@
 import { Badge, Tag } from "antd";
-import useTagColor from "../redux/hooks/tagColor";
+import useTagColor from "../customHooks/tagColor";
 
 export const data = [
   {
@@ -526,6 +526,7 @@ export const time = [
 export const shiftData = [
   {
     title: "Morning Shift",
+    shift: "MORNING",
     startTime: 8,
     endTime: 18,
     colour: "#ff6961",
@@ -533,6 +534,7 @@ export const shiftData = [
   },
   {
     title: "Afternoon Shift",
+    shift: "AFTERNOON",
     startTime: 12,
     endTime: 22,
     colour: "#8be1e7",
@@ -540,6 +542,7 @@ export const shiftData = [
   },
   {
     title: "Full-day",
+    shift: "FULL-DAY",
     startTime: 8,
     endTime: 22,
     colour: "#fcecb2",

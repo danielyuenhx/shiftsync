@@ -1,12 +1,6 @@
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import {
-  step,
-  updateCalendarShift,
-  updateShiftId,
-  updateState,
-} from "../../../redux/slices/shiftSlice";
+import { useAppDispatch } from "../../../redux/hooks/hooks";
 import { Typography } from "antd";
+import { updateShift } from "../../../redux/slices/demoSlice";
 
 type props = {
   blockIndex: number;
@@ -14,8 +8,7 @@ type props = {
   endTime: number;
   colour: string;
   shiftName: string;
-  shiftId: number;
-  selectedState: string;
+  shift: string;
 };
 
 const CalendarShiftBlock = ({
@@ -24,26 +17,16 @@ const CalendarShiftBlock = ({
   endTime,
   colour,
   shiftName,
-  shiftId,
-  selectedState,
+  shift,
 }: props) => {
   const heightPerHour = 41.25;
   const blockWidth = 52;
   const skipWidth = 64;
 
   const dispatch = useAppDispatch();
-  const stepDetail = useAppSelector(step);
 
   const shiftSelect = () => {
-    if (
-      stepDetail === "REQUEST EMPLOYEE" ||
-      stepDetail === "FIND REPLACEMENT"
-    ) {
-      dispatch(updateState("Pending"));
-      dispatch(updateShiftId(shiftId));
-    } else {
-      dispatch(updateState("Request"));
-    }
+    dispatch(updateShift(shift));
   };
 
   return (

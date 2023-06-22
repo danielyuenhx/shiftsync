@@ -1,43 +1,46 @@
 import { Col, Divider, Row } from "antd";
-import { time, shiftData, tableData } from "../../../data/data";
+import { time, shiftData as data } from "../../../data/data";
 import CalendarShiftBlock from "../calendarShiftBlock/calendarShiftBlock";
-import { useAppSelector } from "../../../redux/hooks/hooks";
 import ShiftCard from "./shiftCard/shiftCard";
-import { shiftId, state } from "../../../redux/slices/shiftSlice";
-import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../redux/hooks/hooks";
+import { stateData, shiftData } from "../../../redux/slices/demoSlice";
+import { renderStateData } from "../../../customHooks/renderStateData";
+import { columnsWithState, columnsWithoutState } from "../../../data/newData";
 
 const CalendarContent = () => {
-  const [contentData, setContentData] = useState<any>(
-    getTableDataByStateAndShiftId("Request", 1)
-  );
-  function getTableDataByStateAndShiftId(state: string, shiftId: number) {
-    return tableData.find(
-      (item) => item.state === state && item.shiftId === shiftId
-    );
-  }
+  // Data from redux
+  const state = useAppSelector(stateData);
+  const shift = useAppSelector(shiftData);
 
-  const selectedState = useAppSelector(state);
-  const selectedShiftId = useAppSelector(shiftId);
+  // Getting data from each state
+  const { title, step, stepError, buttonText, showButton } =
+    renderStateData(state);
 
-  useEffect(() => {
-    const data = getTableDataByStateAndShiftId(selectedState, selectedShiftId);
-    setContentData(data);
-  }, [selectedState, selectedShiftId]);
+  // Getting table structure
+  const renderTableStructure = (state: any) => {
+    switch (state) {
+      case "PENDING":
+        return columnsWithState;
+      default:
+        return columnsWithoutState;
+    }
+  };
+
+  const columns = renderTableStructure(state);
 
   return (
     <Row className="tw-w-full tw-justify-around tw-align-top tw-mt-4">
       <Col span={8}>
         <div className="tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative">
           <div className="tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative">
-            {shiftData.map((shift, index) => (
+            {data.map((shift, index) => (
               <CalendarShiftBlock
                 blockIndex={index}
                 startTime={shift.startTime}
                 endTime={shift.endTime}
                 colour={shift.colour}
                 shiftName={shift.title}
-                shiftId={shift.shiftId}
-                selectedState={selectedState}
+                shift={shift.shift}
               />
             ))}
             {time.map((time) => (
@@ -47,7 +50,16 @@ const CalendarContent = () => {
         </div>
       </Col>
       <Col span={15}>
-        <ShiftCard contentData={contentData} />
+        <ShiftCard
+          state={state}
+          buttonText={buttonText}
+          title={title}
+          step={step}
+          stepError={stepError}
+          showButton={showButton}
+          columns={columns}
+          shift={shift}
+        />
       </Col>
     </Row>
   );
