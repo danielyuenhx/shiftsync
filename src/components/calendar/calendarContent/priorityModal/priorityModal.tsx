@@ -1,12 +1,11 @@
 import { Modal, Select, Typography } from "antd";
 import { useAppDispatch } from "../../../../redux/hooks/hooks";
 import { updateState } from "../../../../redux/slices/demoSlice";
-import { useState } from "react";
 
 const { Option } = Select;
 
 const PriorityModal = (props: any) => {
-  const { showModal, state, setShowModal } = props;
+  const { showModal, setShowModal } = props;
   const dispatch = useAppDispatch();
 
   const onCancelHandler = () => {
