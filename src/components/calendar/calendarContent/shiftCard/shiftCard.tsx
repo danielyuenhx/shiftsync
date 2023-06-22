@@ -45,7 +45,7 @@ const ShiftCard = (props: any) => {
 
     if (state === "ALGORITHM") {
       const Timeout = setTimeout(() => {
-        dispatch(updateState("COMPLETED"));
+        dispatch(updateState("APPROVAL"));
       }, 2000);
       return () => {
         clearTimeout(Timeout);
