@@ -35,12 +35,36 @@ const ShiftCard = (props: any) => {
   const [showLoadingLottie, setShowLoadingLottie] = useState(false);
   const dispatch = useAppDispatch();
   const stepDetail = useAppSelector(step);
+  const rejectedState = hasRejectedState(employee);
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     setData(employee);
   }, [employee]);
 
-  const rejectedState = hasRejectedState(employee);
+  useEffect(() => {
+    if (state === "Requested") {
+      const timer1 = setTimeout(() => {
+        dispatch(updateState("Requested"));
+        dispatch(updateShiftId(5));
+        dispatch(updateStep("REQUEST EMPLOYEE"));
+      }, 8000); // Set a 5-second timer (5000 milliseconds)
+
+      const timer2 = setTimeout(() => {
+        dispatch(updateState("Pending"));
+        dispatch(updateShiftId(2));
+        openSuccessNotification(
+          "Replacement needed for Full-Day",
+          "One of the employee rejected the shift"
+        );
+      }, 12000);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [state]);
 
   const buttonTextRender = () => {
     if (rejectedState) {
@@ -53,8 +77,6 @@ const ShiftCard = (props: any) => {
 
     return "Request for availability";
   };
-
-  const [api, contextHolder] = notification.useNotification();
 
   const openSuccessNotification = (title: any, message: any) => {
     if (title === "Approved") {
@@ -77,24 +99,6 @@ const ShiftCard = (props: any) => {
       });
     }
   };
-
-  useEffect(() => {
-    if (state === "Requested") {
-      const timer1 = setTimeout(() => {
-        dispatch(updateState("Pending"));
-        dispatch(updateShiftId(2));
-        dispatch(updateStep("REQUEST EMPLOYEE"));
-        openSuccessNotification(
-          "Replacement needed for Full-Day",
-          "One of the employee rejected the shift"
-        );
-      }, 10000); // Set a 5-second timer (5000 milliseconds)
-
-      return () => {
-        clearTimeout(timer1);
-      };
-    }
-  }, [state]);
 
   // Button functions
   const proceedHandler = () => {
