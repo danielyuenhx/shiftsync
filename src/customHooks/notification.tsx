@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { useEffect } from "react";
 
-type Type = "APPROVAL" | "REJECTED" | "PENDING";
+type Type = "COMPLETED" | "REJECTED" | "PENDING";
 
 interface NotificationProps {
   type: Type;
@@ -18,7 +18,7 @@ const notificationRender = (type: Type, api: any) => {
           "The WhatsApp bot has requested the availability from employees!",
         placement: "bottomRight",
       });
-    case "APPROVAL":
+    case "COMPLETED":
       return api.success({
         message: "Schedule Approved",
         description:
@@ -42,7 +42,7 @@ const Notification = (props: NotificationProps) => {
   useEffect(() => {
     if (
       (props.trigger && props.type === "PENDING") ||
-      (props.trigger && props.type === "APPROVAL") ||
+      (props.trigger && props.type === "COMPLETED") ||
       props.type === "REJECTED"
     ) {
       notificationRender(props.type, api);

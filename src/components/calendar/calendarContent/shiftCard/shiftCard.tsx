@@ -51,6 +51,16 @@ const ShiftCard = (props: any) => {
         clearTimeout(Timeout);
       };
     }
+
+    if (state === "COMPLETED") {
+      const Timeout = setTimeout(() => {
+        dispatch(updateState("REJECTED"));
+      }, 2000);
+      return () => {
+        clearTimeout(Timeout);
+      };
+    }
+
   }, [state]);
 
   const demoFlow = (dispatch: any, state: string) => {
