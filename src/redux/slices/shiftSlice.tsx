@@ -94,7 +94,6 @@ export function getShiftsByDate(dispatch: any, data: any) {
   API.fetchShiftByDate(data)
     .then((response) => {
       const data = response?.data?.data;
-      console.log(data);
       dispatch(updateSelectedShift(data));
     })
     .catch((error) => {

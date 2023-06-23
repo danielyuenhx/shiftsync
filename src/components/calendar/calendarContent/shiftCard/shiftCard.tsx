@@ -4,7 +4,6 @@ import {
   Col,
   Row,
   Table,
-  Tag,
   Typography,
   Steps,
   InputNumber,
@@ -26,7 +25,7 @@ const ShiftCard = (props: any) => {
     buttonText,
     showButton,
     columns,
-    tableData,
+    tableData
   } = props;
   const [showNotification, setShowNotification] = useState(false);
   const [showModal, setShowModal] = useState(false);

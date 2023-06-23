@@ -1,24 +1,46 @@
 import { Divider, Timeline } from "antd";
 import { states } from "../../../data/data";
+import { omegaLogs } from "../../../data/shifts";
+import { useAppSelector } from "../../../redux/hooks/hooks";
+import { stateData } from "../../../redux/slices/demoSlice";
 
 const CalendarLogs = (props: any) => {
-  const renderLogs = (date: any) => {
-    if (date === "2023-06-19") {
-      return states[0].logs;
-    } else if (date === "2023-06-20") {
-      return states[1].logs;
-    } else if (date === "2023-06-21") {
-      return states[2].logs;
-    } else {
-      return states[0].logs;
+  const state = useAppSelector(stateData);
+
+  // Logs
+  const requestedLogs = omegaLogs[0];
+  const pendingLogs = omegaLogs[1];
+  const somePendingLogs = omegaLogs[2];
+  const algorithmLogs = omegaLogs[3];
+  const approvedLogs = omegaLogs[4];
+  const completedLogs = omegaLogs[5];
+
+  const renderLogs = () => {
+    switch (state) {
+      case "PENDING":
+        return requestedLogs;
+      case "SOMEPENDING":
+        return pendingLogs;
+      case "FINAL":
+        return somePendingLogs;
+      case "ALGORITHM":
+        return algorithmLogs;
+      case "APPROVAL":
+        return approvedLogs;
+      case "COMPLETED":
+        return completedLogs;
+      default:
+        break;
     }
   };
+
+  const logs = renderLogs();
 
   return (
     <div className="tw-flex tw-flex-col tw-justify-start tw-w-full tw-mt-6">
       <Divider orientation="left">Logs</Divider>
 
-      <Timeline mode="left" items={renderLogs(props.date)} />
+      <Timeline mode="left" items={logs} />
     </div>
   );
 };

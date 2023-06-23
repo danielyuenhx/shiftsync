@@ -2,6 +2,7 @@ import { Modal, Select, Typography } from "antd";
 import { useAppDispatch } from "../../../../redux/hooks/hooks";
 import { updateState } from "../../../../redux/slices/demoSlice";
 import { sendRequest } from "../../../../api";
+import { updateShowLogs } from "../../../../redux/slices/shiftSlice";
 
 const { Option } = Select;
 
@@ -9,14 +10,17 @@ const PriorityModal = (props: any) => {
   const { showModal, setShowModal } = props;
   const dispatch = useAppDispatch();
 
-  const onCancelHandler = () => {
+  const onCancelHandler = async () => {
     setShowModal(false);
     dispatch(updateState("PENDING"));
+    dispatch(updateShowLogs(true));
+    await sendRequest();
   };
 
   const onOkHandler = async () => {
     setShowModal(false);
     dispatch(updateState("PENDING"));
+    dispatch(updateShowLogs(true));
     await sendRequest();
   };
 
