@@ -46,7 +46,7 @@ const ShiftCard = (props: any) => {
     replace,
   } = tableData;
 
-  const [count, setCount] = useState(20);
+  const [count, setCount] = useState(25);
   let timer: number;
 
   // If the state changes, set timer to move to another state
@@ -59,7 +59,7 @@ const ShiftCard = (props: any) => {
 
       const Timeout = setTimeout(() => {
         dispatch(updateState('SOMEPENDING'));
-      }, 5000);
+      }, 10000);
 
       return () => {
         clearTimeout(Timeout);
@@ -96,7 +96,7 @@ const ShiftCard = (props: any) => {
     if (state === "COMPLETED") {
       const Timeout = setTimeout(() => {
         dispatch(updateState("REJECTED"));
-      }, 15000);
+      }, 10000);
       return () => {
         clearTimeout(Timeout);
       };
@@ -273,7 +273,7 @@ const ShiftCard = (props: any) => {
               <Typography.Title className='!tw-mb-0' level={5}>
                 End after:
               </Typography.Title>
-              <InputNumber addonAfter={selectAfter} defaultValue={15} />
+              <InputNumber addonAfter={selectAfter} defaultValue={25} />
             </Row>
           )}
           {showButton && (
