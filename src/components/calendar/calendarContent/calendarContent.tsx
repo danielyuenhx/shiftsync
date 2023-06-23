@@ -6,6 +6,7 @@ import { useAppSelector } from "../../../redux/hooks/hooks";
 import { stateData, shiftData } from "../../../redux/slices/demoSlice";
 import { renderStateData } from "../../../customHooks/renderStateData";
 import { columnsWithState, columnsWithoutState } from "../../../data/newData";
+import { omegaData } from "../../../data/shifts";
 
 const CalendarContent = () => {
   // Data from redux
@@ -21,12 +22,89 @@ const CalendarContent = () => {
     switch (state) {
       case "PENDING":
         return columnsWithState;
+      case "SOMEPENDING":
+        return columnsWithState;
+      case "FINAL":
+        return columnsWithState;
       default:
         return columnsWithoutState;
     }
   };
 
   const columns = renderTableStructure(state);
+
+  // Roles
+  const morning = omegaData.morning.name;
+  const afternoon = omegaData.afternoon.name;
+  const fullDay = omegaData.full.name;
+
+  // Roles
+  const morningRoles = omegaData.morning.roles;
+  const afternoonRoles = omegaData.afternoon.roles;
+  const fullDayRoles = omegaData.full.roles;
+
+  // Time
+  const morningTime = omegaData.morning.time;
+  const afternoonTime = omegaData.afternoon.time;
+  const fullDayTime = omegaData.full.time;
+
+  // Morning
+  const allPossibleMorning = omegaData.morning.states[0];
+  const allPendingMorning = omegaData.morning.states[1];
+  const somePendingMorning = omegaData.morning.states[2];
+  const finalMorning = omegaData.morning.states[3];
+  const chosenMorning = omegaData.morning.states[4];
+
+  // Afternoon
+  const allPossibleAfternoon = omegaData.afternoon.states[0];
+  const finalAfternoon = omegaData.afternoon.states[1];
+  const chosenAfternoon = omegaData.afternoon.states[2];
+
+  // Full-Day
+  const allPossibleFull = omegaData.full.states[0];
+  const finalFull = omegaData.full.states[1];
+  const chosenFull = omegaData.full.states[2];
+
+  const renderTableData = () => {
+    switch (shift) {
+      case "MORNING":
+        return {
+          name: morning,
+          roles: morningRoles,
+          time: morningTime,
+          possible: allPossibleMorning,
+          allPending: allPendingMorning,
+          somePending: somePendingMorning,
+          final: finalMorning,
+          chosen: chosenMorning,
+        };
+
+      case "AFTERNOON":
+        return {
+          name: afternoon,
+          roles: afternoonRoles,
+          time: afternoonTime,
+          possible: allPossibleAfternoon,
+          final: finalAfternoon,
+          chosen: chosenAfternoon,
+        };
+
+      case "FULL-DAY":
+        return {
+          name: fullDay,
+          roles: fullDayRoles,
+          time: fullDayTime,
+          possible: allPossibleFull,
+          final: finalFull,
+          chosen: chosenFull,
+        };
+
+      default:
+        break;
+    }
+  };
+
+  const tableData = renderTableData();
 
   return (
     <Row className="tw-w-full tw-justify-around tw-align-top tw-mt-4">
@@ -59,6 +137,7 @@ const CalendarContent = () => {
           showButton={showButton}
           columns={columns}
           shift={shift}
+          tableData={tableData}
         />
       </Col>
     </Row>

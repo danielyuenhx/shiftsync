@@ -1,8 +1,9 @@
 import TagRole from '../customHooks/tagRole';
 import StateBadge from '../customHooks/badgeState';
 
-export const shiftData = {
+export const omegaData = {
   morning: {
+    name: "Morning",
     time: '08:00AM - 06:00PM',
     roles: [
       <TagRole role='Barista' pax={1} />,
@@ -212,6 +213,7 @@ export const shiftData = {
     ],
   },
   afternoon: {
+    name: "Afternoon",
     time: '12:00PM - 10:00PM',
     roles: [
       <TagRole role='Cashier' pax={1} />,
@@ -282,6 +284,7 @@ export const shiftData = {
     ],
   },
   full: {
+    name: "Full-Day",
     time: '11:00AM - 9:00PM',
     roles: [
       <TagRole role='Barista' pax={1} />,

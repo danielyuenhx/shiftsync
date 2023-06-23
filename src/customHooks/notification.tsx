@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { useEffect } from "react";
 
-type Type = "COMPLETED" | "REJECTED" | "PENDING";
+type Type = "COMPLETED" | "REJECTED" | "PENDING" | "DOWNLOAD";
 
 interface NotificationProps {
   type: Type;
@@ -23,6 +23,12 @@ const notificationRender = (type: Type, api: any) => {
         message: "Schedule Approved",
         description:
           "Schedule for the day has been approved and is downloadable!",
+        placement: "bottomRight",
+      });
+    case "DOWNLOAD":
+      return api.success({
+        message: "Schedule Downloaded",
+        description: "Schedule has been downloaded",
         placement: "bottomRight",
       });
     case "REJECTED":

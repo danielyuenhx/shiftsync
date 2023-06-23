@@ -26,18 +26,47 @@ const ShiftCard = (props: any) => {
     buttonText,
     showButton,
     columns,
-    shift,
+    tableData,
   } = props;
   const [showNotification, setShowNotification] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
 
+  const {
+    name,
+    roles,
+    time,
+    possible,
+    allPending,
+    somePending,
+    final,
+    chosen,
+  } = tableData;
+
   // If the state changes, set timer to move to another state
   useEffect(() => {
     if (state === "PENDING") {
       const Timeout = setTimeout(() => {
+        dispatch(updateState("SOMEPENDING"));
+      }, 5000);
+      return () => {
+        clearTimeout(Timeout);
+      };
+    }
+
+    if (state === "SOMEPENDING") {
+      const Timeout = setTimeout(() => {
+        dispatch(updateState("FINAL"));
+      }, 5000);
+      return () => {
+        clearTimeout(Timeout);
+      };
+    }
+
+    if (state === "FINAL") {
+      const Timeout = setTimeout(() => {
         dispatch(updateState("ALGORITHM"));
-      }, 2000);
+      }, 5000);
       return () => {
         clearTimeout(Timeout);
       };
@@ -46,21 +75,20 @@ const ShiftCard = (props: any) => {
     if (state === "ALGORITHM") {
       const Timeout = setTimeout(() => {
         dispatch(updateState("APPROVAL"));
-      }, 2000);
+      }, 5000);
       return () => {
         clearTimeout(Timeout);
       };
     }
 
-    if (state === "COMPLETED") {
-      const Timeout = setTimeout(() => {
-        dispatch(updateState("REJECTED"));
-      }, 2000);
-      return () => {
-        clearTimeout(Timeout);
-      };
-    }
-
+    // if (state === "COMPLETED") {
+    //   const Timeout = setTimeout(() => {
+    //     dispatch(updateState("REJECTED"));
+    //   }, 10000);
+    //   return () => {
+    //     clearTimeout(Timeout);
+    //   };
+    // }
   }, [state]);
 
   const demoFlow = (dispatch: any, state: string) => {
@@ -78,6 +106,31 @@ const ShiftCard = (props: any) => {
     demoFlow(dispatch, state);
   };
 
+  // Function to render data
+  const renderTableData = () => {
+    switch (state) {
+      case "START":
+        return possible;
+      case "REQUEST":
+        return allPending;
+      case "PENDING":
+        return allPending;
+      case "SOMEPENDING":
+        return somePending;
+      case "FINAL":
+        return final;
+      case "APPROVAL":
+        return chosen;
+      case "COMPLETED":
+        return chosen;
+
+      default:
+        break;
+    }
+  };
+
+  const omegaData = renderTableData();
+
   const selectAfter = (
     <Select defaultValue="Seconds">
       <Select.Option value="Seconds">Seconds</Select.Option>
@@ -94,7 +147,7 @@ const ShiftCard = (props: any) => {
         title={
           <Row className="tw-items-center !tw-min-h-[60px]">
             <Typography.Title level={3} className="!tw-m-0">
-              {shift}
+              {name}
             </Typography.Title>
           </Row>
         }
@@ -109,7 +162,12 @@ const ShiftCard = (props: any) => {
           trigger={showNotification}
           setShowNotification={setShowNotification}
         />
-        <Col>
+        <Typography.Title level={5} className="tw-mb-4">
+          {time}
+        </Typography.Title>
+        <Row>{roles}</Row>
+
+        <Col className="tw-mt-8 tw-mb-4">
           <Steps
             current={step}
             status={stepError}
@@ -127,10 +185,6 @@ const ShiftCard = (props: any) => {
             ]}
           />
         </Col>
-
-        <Row className="tw-h-6 tw-mt-4 tw-mb-16">
-          <Tag>Testing</Tag>
-        </Row>
 
         {/* Employees */}
         <Typography.Title level={5}>{title}</Typography.Title>
@@ -158,7 +212,13 @@ const ShiftCard = (props: any) => {
             </Typography>
           </div>
         ) : (
-          <Table columns={columns} pagination={false} />
+          <div style={{ maxHeight: "300px", overflowY: "scroll" }}>
+            <Table
+              dataSource={omegaData}
+              columns={columns}
+              pagination={false}
+            />
+          </div>
         )}
 
         <div className="tw-flex tw-gap-4 tw-justify-end tw-mt-4">

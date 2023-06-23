@@ -23,6 +23,20 @@ export const renderStateData = (state: any) => {
         stepError: "process",
         buttonText: "Request Availability",
       };
+    case "SOMEPENDING":
+      return {
+        title: "Pending Employees",
+        step: 1,
+        stepError: "process",
+        buttonText: "Request Availability",
+      };
+    case "FINAL":
+      return {
+        title: "Pending Employees",
+        step: 1,
+        stepError: "process",
+        buttonText: "Request Availability",
+      };
     case "ALGORITHM":
       return {
         title: "Possible Employees",
@@ -46,6 +60,14 @@ export const renderStateData = (state: any) => {
         buttonText: "Download Schedule",
         showButton: true,
       };
+      case "DOWNLOAD":
+        return {
+          title: "Employees On Shift",
+          step: 3,
+          stepError: "finish",
+          buttonText: "Download Schedule",
+          showButton: true,
+        };
     case "REJECTED":
       return {
         title: "Employees On Shift",

@@ -5,9 +5,12 @@ type State =
   | "START"
   | "REQUEST"
   | "PENDING"
+  | "SOMEPENDING"
+  | "FINAL"
   | "ALGORITHM"
   | "APPROVAL"
   | "COMPLETED"
+  | "DOWNLOAD"
   | "REJECTED";
 
 export interface DemoState {

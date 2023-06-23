@@ -5,9 +5,9 @@ export const columnsWithoutState = [
     key: "name",
   },
   {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
+    title: "Roles",
+    dataIndex: "roles",
+    key: "roles",
   },
 ];
 
@@ -18,9 +18,9 @@ export const columnsWithState = [
     key: "name",
   },
   {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
+    title: "Roles",
+    dataIndex: "roles",
+    key: "roles",
   },
   {
     title: "State",
