@@ -537,8 +537,8 @@ export const shiftData = [
   {
     title: "Full-day Shift",
     shift: "FULL-DAY",
-    startTime: 8-6,
-    endTime: 22-6,
+    startTime: 9-6,
+    endTime: 21-6,
     colour: "#fcecb2",
     shiftId: 4,
   },
