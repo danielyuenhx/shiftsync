@@ -249,6 +249,71 @@ export const omegaLogs = [
       children: "Manager approved schedule",
     },
   ],
+
+  [
+    {
+      label: "24/6/2023",
+      children: "Manager requested shift availabilities from employees",
+    },
+    ////////////////////////////////
+    {
+      label: "24/6/2023",
+      children: "Stacy Rejected the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Daniel Accepted the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Zheng Jie Rejected the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Jessica Accepted the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Mike Accepted the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Nicholas Accepted the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Mei Li Rejected the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Dave Lee Rejected the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Jessica Rejected the shift",
+    },
+    {
+      label: "24/6/2023",
+      children: "Zheng Jie Accepted the shift",
+    },
+    ////////////////////////////////
+    {
+      label: "24/6/2023",
+      children: "Algorithm is running to optimize the shifts",
+    },
+    {
+      label: "24/6/2023",
+      children: "Latest schedule generated",
+    },
+    {
+      label: "24/6/2023",
+      children: "Manager approved schedule",
+    },
+    {
+      label: "24/6/2023",
+      children: "Mike has replaced Kai Wen shift on Afternoon",
+    },
+  ],
 ];
 
 export const omegaData = {
@@ -542,6 +607,18 @@ export const omegaData = {
         },
         {
           name: "Kai Wen",
+          roles: [<TagRole role="Waiter" />],
+          state: <StateBadge state="Accepted" />,
+        },
+      ],
+      [
+        {
+          name: "Stacy",
+          roles: [<TagRole role="Cashier" />],
+          state: <StateBadge state="Accepted" />,
+        },
+        {
+          name: "Mike",
           roles: [<TagRole role="Waiter" />],
           state: <StateBadge state="Accepted" />,
         },

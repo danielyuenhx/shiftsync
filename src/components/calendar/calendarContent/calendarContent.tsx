@@ -59,6 +59,7 @@ const CalendarContent = () => {
   const allPossibleAfternoon = omegaData.afternoon.states[0];
   const finalAfternoon = omegaData.afternoon.states[1];
   const chosenAfternoon = omegaData.afternoon.states[2];
+  const replacedAfternoon = omegaData.afternoon.states[3];
 
   // Full-Day
   const allPossibleFull = omegaData.full.states[0];
@@ -77,6 +78,7 @@ const CalendarContent = () => {
           somePending: somePendingMorning,
           final: finalMorning,
           chosen: chosenMorning,
+          replace: chosenMorning
         };
 
       case "AFTERNOON":
@@ -87,6 +89,7 @@ const CalendarContent = () => {
           possible: allPossibleAfternoon,
           final: finalAfternoon,
           chosen: chosenAfternoon,
+          replace: replacedAfternoon
         };
 
       case "FULL-DAY":
@@ -97,6 +100,7 @@ const CalendarContent = () => {
           possible: allPossibleFull,
           final: finalFull,
           chosen: chosenFull,
+          replace: chosenFull
         };
 
       default:

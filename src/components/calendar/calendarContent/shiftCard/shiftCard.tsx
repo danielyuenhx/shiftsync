@@ -25,7 +25,7 @@ const ShiftCard = (props: any) => {
     buttonText,
     showButton,
     columns,
-    tableData
+    tableData,
   } = props;
   const [showNotification, setShowNotification] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -40,6 +40,7 @@ const ShiftCard = (props: any) => {
     somePending,
     final,
     chosen,
+    replace,
   } = tableData;
 
   // If the state changes, set timer to move to another state
@@ -74,6 +75,15 @@ const ShiftCard = (props: any) => {
     if (state === "ALGORITHM") {
       const Timeout = setTimeout(() => {
         dispatch(updateState("APPROVAL"));
+      }, 5000);
+      return () => {
+        clearTimeout(Timeout);
+      };
+    }
+
+    if (state === "COMPLETED") {
+      const Timeout = setTimeout(() => {
+        dispatch(updateState("REJECTED"));
       }, 5000);
       return () => {
         clearTimeout(Timeout);
@@ -122,6 +132,8 @@ const ShiftCard = (props: any) => {
         return chosen;
       case "COMPLETED":
         return chosen;
+      case "REJECTED":
+        return replace;
 
       default:
         break;

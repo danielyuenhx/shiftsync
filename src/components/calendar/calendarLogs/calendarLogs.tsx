@@ -14,6 +14,7 @@ const CalendarLogs = (props: any) => {
   const algorithmLogs = omegaLogs[3];
   const approvedLogs = omegaLogs[4];
   const completedLogs = omegaLogs[5];
+  const replacedLogs = omegaLogs[6];
 
   const renderLogs = () => {
     switch (state) {
@@ -29,6 +30,8 @@ const CalendarLogs = (props: any) => {
         return approvedLogs;
       case "COMPLETED":
         return completedLogs;
+      case "REJECTED":
+        return replacedLogs;
       default:
         break;
     }
