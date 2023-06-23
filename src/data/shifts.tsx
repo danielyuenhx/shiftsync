@@ -512,12 +512,17 @@ export const omegaData = {
       [
         {
           name: "Mike",
-          roles: [<TagRole role="Barista" />],
+          roles: [<TagRole role="Waiter" />],
           state: <StateBadge state="Accepted" />,
         },
         {
           name: "Daniel",
           roles: [<TagRole role="Barista" />],
+          state: <StateBadge state="Accepted" />,
+        },
+        {
+          name: "Zheng Jie",
+          roles: [<TagRole role="Waiter" />],
           state: <StateBadge state="Accepted" />,
         },
         {
