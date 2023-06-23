@@ -273,7 +273,7 @@ const ShiftCard = (props: any) => {
               <Typography.Title className='!tw-mb-0' level={5}>
                 End after:
               </Typography.Title>
-              <InputNumber addonAfter={selectAfter} defaultValue={15} />
+              <InputNumber addonAfter={selectAfter} defaultValue={25} />
             </Row>
           )}
           {showButton && (

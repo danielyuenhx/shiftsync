@@ -311,7 +311,7 @@ export const omegaLogs = [
     },
     {
       label: "24/6/2023",
-      children: "Jason has replaced Kai Wen shift on Afternoon",
+      children: "Mike has replaced Kai Wen shift on Afternoon",
     },
   ],
 ];
