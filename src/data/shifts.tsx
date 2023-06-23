@@ -311,7 +311,7 @@ export const omegaLogs = [
     },
     {
       label: "24/6/2023",
-      children: "Mike has replaced Kai Wen shift on Afternoon",
+      children: "Jason has replaced Kai Wen shift on Afternoon",
     },
   ],
 ];
@@ -334,7 +334,7 @@ export const omegaData = {
     states: [
       [
         {
-          name: "Mike",
+          name: "Jason",
           roles: [<TagRole role="Barista" />, <TagRole role="Waiter" />],
         },
         {
@@ -358,7 +358,7 @@ export const omegaData = {
       ],
       [
         {
-          name: "Mike",
+          name: "Jason",
           roles: [<TagRole role="Barista" />, <TagRole role="Waiter" />],
           state: <StateBadge state="Pending" />,
         },
@@ -409,7 +409,7 @@ export const omegaData = {
       ],
       [
         {
-          name: "Mike",
+          name: "Jason",
           roles: [<TagRole role="Barista" />, <TagRole role="Waiter" />],
           state: <StateBadge state="Pending" />,
         },
@@ -460,7 +460,7 @@ export const omegaData = {
       ],
       [
         {
-          name: "Mike",
+          name: "Jason",
           roles: [<TagRole role="Barista" />, <TagRole role="Waiter" />],
           state: <StateBadge state="Accepted" />,
         },
@@ -511,7 +511,7 @@ export const omegaData = {
       ],
       [
         {
-          name: "Mike",
+          name: "Jason",
           roles: [<TagRole role="Barista" />],
           state: <StateBadge state="Accepted" />,
         },
