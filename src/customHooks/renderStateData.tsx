@@ -18,35 +18,35 @@ export const renderStateData = (state: any) => {
       };
     case "PENDING":
       return {
-        title: "Pending Employees",
+        title: "Possible Employees",
         step: 1,
         stepError: "process",
         buttonText: "Request Availability",
       };
     case "SOMEPENDING":
       return {
-        title: "Pending Employees",
+        title: "Possible Employees",
         step: 1,
         stepError: "process",
         buttonText: "Request Availability",
       };
     case "FINAL":
       return {
-        title: "Pending Employees",
+        title: "Possible Employees",
         step: 1,
         stepError: "process",
         buttonText: "Request Availability",
       };
     case "ALGORITHM":
       return {
-        title: "Possible Employees",
+        title: "",
         step: 1,
         stepError: "finish",
         buttonText: "Request Availability",
       };
     case "APPROVAL":
       return {
-        title: "Employees On Shift",
+        title: "Employees on Shift",
         step: 2,
         stepError: "process",
         buttonText: "Approve Day",
@@ -54,7 +54,7 @@ export const renderStateData = (state: any) => {
       };
     case "COMPLETED":
       return {
-        title: "Employees On Shift",
+        title: "Employees on Shift",
         step: 3,
         stepError: "finish",
         buttonText: "Download Schedule",
@@ -62,7 +62,7 @@ export const renderStateData = (state: any) => {
       };
       case "DOWNLOAD":
         return {
-          title: "Employees On Shift",
+          title: "Employees on Shift",
           step: 3,
           stepError: "finish",
           buttonText: "Download Schedule",
@@ -70,7 +70,7 @@ export const renderStateData = (state: any) => {
         };
     case "REJECTED":
       return {
-        title: "Employees On Shift",
+        title: "Employees on Shift",
         step: 2,
         stepError: "error",
       };

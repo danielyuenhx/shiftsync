@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { Typography } from "antd";
 import { updateShift } from "../../../redux/slices/demoSlice";
 
@@ -19,8 +19,8 @@ const CalendarShiftBlock = ({
   shiftName,
   shift,
 }: props) => {
-  const heightPerHour = 41.25;
-  const blockWidth = 52;
+  const heightPerHour = 44;
+  const blockWidth = 48;
   const skipWidth = 64;
 
   const dispatch = useAppDispatch();
@@ -29,6 +29,8 @@ const CalendarShiftBlock = ({
     dispatch(updateShift(shift));
   };
 
+  const selectedShift = useAppSelector((state: any) => state.demo.shift);
+
   return (
     <div
       onClick={shiftSelect}
@@ -36,13 +38,16 @@ const CalendarShiftBlock = ({
         position: "absolute",
         height: `${heightPerHour * (endTime - startTime)}px`,
         width: blockWidth,
-        top: "28px",
+        top: "36px",
         marginTop: `${heightPerHour * startTime}px`,
-        left: "96px",
+        left: "104px",
         marginLeft: `${blockIndex * skipWidth}px`,
-        backgroundColor: `${colour}`,
+        backgroundColor: shift === selectedShift ? `${colour}` : "lightgray",
+        zIndex: 2,
         borderRadius: "6px",
         cursor: "pointer",
+        // border: shift === selectedShift ? "2px solid gray" : "",
+        transition: "0.25s"
       }}
     >
       <p

@@ -13,9 +13,9 @@ const notificationRender = (type: Type, api: any) => {
   switch (type) {
     case "PENDING":
       return api.info({
-        message: "Availability Requested",
+        message: "Availability requested",
         description:
-          "The WhatsApp bot has requested the availability from employees!",
+          "Our WhatsApp bot has requested employee availabilities 🤖",
         placement: "bottomRight",
       });
     case "COMPLETED":
@@ -34,7 +34,7 @@ const notificationRender = (type: Type, api: any) => {
     case "REJECTED":
       return api.warning({
         message: "Replacement Needed",
-        description: "Don't Worry, the WhatsApp bot will help to look for it!",
+        description: "Our Whatsapp bot is looking for a replacement 🤖",
         placement: "bottomRight",
       });
     default:

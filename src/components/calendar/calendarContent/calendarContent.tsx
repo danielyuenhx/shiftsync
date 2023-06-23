@@ -1,12 +1,12 @@
-import { Col, Divider, Row } from "antd";
-import { time, shiftData as data } from "../../../data/data";
-import CalendarShiftBlock from "../calendarShiftBlock/calendarShiftBlock";
-import ShiftCard from "./shiftCard/shiftCard";
-import { useAppSelector } from "../../../redux/hooks/hooks";
-import { stateData, shiftData } from "../../../redux/slices/demoSlice";
-import { renderStateData } from "../../../customHooks/renderStateData";
-import { columnsWithState, columnsWithoutState } from "../../../data/newData";
-import { omegaData } from "../../../data/shifts";
+import { Col, Divider, Row } from 'antd';
+import { time, shiftData as data } from '../../../data/data';
+import CalendarShiftBlock from '../calendarShiftBlock/calendarShiftBlock';
+import ShiftCard from './shiftCard/shiftCard';
+import { useAppSelector } from '../../../redux/hooks/hooks';
+import { stateData, shiftData } from '../../../redux/slices/demoSlice';
+import { renderStateData } from '../../../customHooks/renderStateData';
+import { columnsWithState, columnsWithoutState } from '../../../data/newData';
+import { omegaData } from '../../../data/shifts';
 
 const CalendarContent = () => {
   // Data from redux
@@ -20,11 +20,11 @@ const CalendarContent = () => {
   // Getting table structure
   const renderTableStructure = (state: any) => {
     switch (state) {
-      case "PENDING":
+      case 'PENDING':
         return columnsWithState;
-      case "SOMEPENDING":
+      case 'SOMEPENDING':
         return columnsWithState;
-      case "FINAL":
+      case 'FINAL':
         return columnsWithState;
       default:
         return columnsWithoutState;
@@ -67,7 +67,7 @@ const CalendarContent = () => {
 
   const renderTableData = () => {
     switch (shift) {
-      case "MORNING":
+      case 'MORNING':
         return {
           name: morning,
           roles: morningRoles,
@@ -79,7 +79,7 @@ const CalendarContent = () => {
           chosen: chosenMorning,
         };
 
-      case "AFTERNOON":
+      case 'AFTERNOON':
         return {
           name: afternoon,
           roles: afternoonRoles,
@@ -89,7 +89,7 @@ const CalendarContent = () => {
           chosen: chosenAfternoon,
         };
 
-      case "FULL-DAY":
+      case 'FULL-DAY':
         return {
           name: fullDay,
           roles: fullDayRoles,
@@ -107,10 +107,10 @@ const CalendarContent = () => {
   const tableData = renderTableData();
 
   return (
-    <Row className="tw-w-full tw-justify-around tw-align-top tw-mt-4">
+    <Row className='tw-w-full tw-justify-around tw-align-top tw-mt-4'>
       <Col span={8}>
-        <div className="tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative">
-          <div className="tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative">
+        <div className='tw-p-2 tw-border-gray-400 tw-border-[1px] tw-border-opacity-20 tw-rounded-xl tw-relative'>
+          <div className='tw-max-h-[625px] tw-overflow-y-scroll tw-pr-4 tw-relative'>
             {data.map((shift, index) => (
               <CalendarShiftBlock
                 blockIndex={index}
@@ -122,7 +122,12 @@ const CalendarContent = () => {
               />
             ))}
             {time.map((time) => (
-              <Divider orientation="left">{time}</Divider>
+              <Divider
+                orientation='left'
+                className='!tw-text-xs !tw-font-normal !tw-mt-7 !tw-mb-7 !tw-text-gray-500'
+              >
+                {time}
+              </Divider>
             ))}
           </div>
         </div>
