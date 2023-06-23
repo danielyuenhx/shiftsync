@@ -71,8 +71,10 @@ export const renderStateData = (state: any) => {
     case "REJECTED":
       return {
         title: "Employees on Shift",
-        step: 2,
-        stepError: "error",
+        step: 3,
+        stepError: "finish",
+        buttonText: "Download Schedule",
+        showButton: true,
       };
     default:
       return {

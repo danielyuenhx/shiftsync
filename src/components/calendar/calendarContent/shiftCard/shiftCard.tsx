@@ -4,7 +4,6 @@ import {
   Col,
   Row,
   Table,
-  Tag,
   Typography,
   Steps,
   InputNumber,
@@ -43,6 +42,7 @@ const ShiftCard = (props: any) => {
     somePending,
     final,
     chosen,
+    replace,
   } = tableData;
 
   const [count, setCount] = useState(15);
@@ -86,6 +86,15 @@ const ShiftCard = (props: any) => {
     if (state === 'ALGORITHM') {
       const Timeout = setTimeout(() => {
         dispatch(updateState('APPROVAL'));
+      }, 5000);
+      return () => {
+        clearTimeout(Timeout);
+      };
+    }
+
+    if (state === "COMPLETED") {
+      const Timeout = setTimeout(() => {
+        dispatch(updateState("REJECTED"));
       }, 5000);
       return () => {
         clearTimeout(Timeout);
@@ -148,6 +157,8 @@ const ShiftCard = (props: any) => {
         return chosen;
       case 'COMPLETED':
         return chosen;
+      case "REJECTED":
+        return replace;
 
       default:
         break;

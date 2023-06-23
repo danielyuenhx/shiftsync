@@ -59,3 +59,6 @@ export const createRoles = (name: string) =>
   API.post(`/roles`, {
     name: name,
   });
+
+// REQUEST API
+export const sendRequest = () => API.post(`/requestAvailabilities`);

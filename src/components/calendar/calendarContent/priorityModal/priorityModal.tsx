@@ -1,6 +1,8 @@
 import { Modal, Select, Typography } from "antd";
 import { useAppDispatch } from "../../../../redux/hooks/hooks";
 import { updateState } from "../../../../redux/slices/demoSlice";
+import { sendRequest } from "../../../../api";
+import { updateShowLogs } from "../../../../redux/slices/shiftSlice";
 
 const { Option } = Select;
 
@@ -8,14 +10,18 @@ const PriorityModal = (props: any) => {
   const { showModal, setShowModal } = props;
   const dispatch = useAppDispatch();
 
-  const onCancelHandler = () => {
+  const onCancelHandler = async () => {
     setShowModal(false);
     dispatch(updateState("PENDING"));
+    dispatch(updateShowLogs(true));
+    await sendRequest();
   };
 
-  const onOkHandler = () => {
+  const onOkHandler = async () => {
     setShowModal(false);
     dispatch(updateState("PENDING"));
+    dispatch(updateShowLogs(true));
+    await sendRequest();
   };
 
   return (
@@ -42,9 +48,15 @@ const PriorityModal = (props: any) => {
           placeholder="Select employees"
           style={{ width: "100%" }}
         >
-          <Option value="high">High</Option>
-          <Option value="medium">Medium</Option>
-          <Option value="low">Low</Option>
+          <Option value="Mike">Mike</Option>
+          <Option value="Stacy">Stacy</Option>
+          <Option value="Nicholas">Nicholas</Option>
+          <Option value="Daniel">Daniel</Option>
+          <Option value="Kai Wen">Kai Wen</Option>
+          <Option value="Zheng Jie">Zheng Jie</Option>
+          <Option value="Dave Lee">Dave Lee</Option>
+          <Option value="Jessica">Jessica</Option>
+          <Option value="Mei Li">Mei Li</Option>
         </Select>
       </div>
     </Modal>

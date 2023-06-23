@@ -32,9 +32,10 @@ const notificationRender = (type: Type, api: any) => {
         placement: "bottomRight",
       });
     case "REJECTED":
-      return api.warning({
-        message: "Replacement Needed",
-        description: "Our Whatsapp bot is looking for a replacement 🤖",
+      return api.success({
+        message: "Replacement Found!",
+        description:
+          "A cancelled shift has been replaced by another employee!",
         placement: "bottomRight",
       });
     default:
