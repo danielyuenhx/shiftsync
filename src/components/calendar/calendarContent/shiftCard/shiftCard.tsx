@@ -17,6 +17,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import { useAppDispatch } from '../../../../redux/hooks/hooks';
 import { updateState } from '../../../../redux/slices/demoSlice';
 import PriorityModal from '../priorityModal/priorityModal';
+import { sendCalendarShifts } from '../../../../components/utils/api';
 
 const ShiftCard = (props: any) => {
   const {
@@ -125,11 +126,12 @@ const ShiftCard = (props: any) => {
     };
   }, [count]);
 
-  const demoFlow = (dispatch: any, state: string) => {
+  const demoFlow = async (dispatch: any, state: string) => {
     switch (state) {
       case 'START':
         return setShowModal(true);
       case 'APPROVAL':
+        await sendCalendarShifts();
         return dispatch(updateState('COMPLETED'));
     }
   };

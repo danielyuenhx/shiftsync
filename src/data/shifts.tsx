@@ -521,6 +521,11 @@ export const omegaData = {
           state: <StateBadge state="Accepted" />,
         },
         {
+          name: "Zheng Jie",
+          roles: [<TagRole role="Waiter" />],
+          state: <StateBadge state="Accepted" />,
+        },
+        {
           name: "Jessica",
           roles: [<TagRole role="Cashier" />],
           state: <StateBadge state="Accepted" />,
