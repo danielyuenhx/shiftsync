@@ -46,7 +46,7 @@ const ShiftCard = (props: any) => {
     replace,
   } = tableData;
 
-  const [count, setCount] = useState(15);
+  const [count, setCount] = useState(20);
   let timer: number;
 
   // If the state changes, set timer to move to another state
@@ -78,7 +78,7 @@ const ShiftCard = (props: any) => {
     if (state === 'FINAL') {
       const Timeout = setTimeout(() => {
         dispatch(updateState('ALGORITHM'));
-      }, 5000);
+      }, 10000);
       return () => {
         clearTimeout(Timeout);
       };
@@ -96,7 +96,7 @@ const ShiftCard = (props: any) => {
     if (state === "COMPLETED") {
       const Timeout = setTimeout(() => {
         dispatch(updateState("REJECTED"));
-      }, 5000);
+      }, 15000);
       return () => {
         clearTimeout(Timeout);
       };
