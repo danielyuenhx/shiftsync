@@ -5,11 +5,11 @@ type Role = "Cashier" | "Waiter" | "Barista";
 const getRoleColour = (role: Role, pax: number) => {
   switch (role) {
     case "Cashier":
-      return <Tag color="gold">Cashier x{pax}</Tag>;
+      return <Tag color="gold">x{pax} Cashier</Tag>;
     case "Waiter":
-      return <Tag color="blue">Waiter x{pax}</Tag>;
+      return <Tag color="blue">x{pax} Waiter</Tag>;
     case "Barista":
-      return <Tag color="red">Barista x{pax}</Tag>;
+      return <Tag color="red">x{pax} Barista</Tag>;
     default:
       return null;
   }
@@ -17,11 +17,11 @@ const getRoleColour = (role: Role, pax: number) => {
 
 interface TagRoleProps {
   role: Role;
-  pax: number;
+  pax?: number;
 }
 
 const TagRole = (role: TagRoleProps) => {
-  const tagComponent = getRoleColour(role.role, role.pax);
+  const tagComponent = getRoleColour(role.role, role.pax ? role.pax : 1);
 
   return <div>{tagComponent}</div>;
 };
