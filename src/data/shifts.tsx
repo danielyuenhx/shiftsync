@@ -1,4 +1,5 @@
 import TagRole from '../customHooks/tagRole';
+import StateBadge from '../customHooks/badgeState';
 
 export const shiftData = {
   morning: {
