@@ -1,6 +1,7 @@
 import { Modal, Select, Typography } from "antd";
 import { useAppDispatch } from "../../../../redux/hooks/hooks";
 import { updateState } from "../../../../redux/slices/demoSlice";
+import { sendRequest } from "../../../../api";
 
 const { Option } = Select;
 
@@ -13,9 +14,10 @@ const PriorityModal = (props: any) => {
     dispatch(updateState("PENDING"));
   };
 
-  const onOkHandler = () => {
+  const onOkHandler = async () => {
     setShowModal(false);
     dispatch(updateState("PENDING"));
+    await sendRequest();
   };
 
   return (

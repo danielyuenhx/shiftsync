@@ -60,14 +60,14 @@ export const renderStateData = (state: any) => {
         buttonText: "Download Schedule",
         showButton: true,
       };
-      case "DOWNLOAD":
-        return {
-          title: "Employees On Shift",
-          step: 3,
-          stepError: "finish",
-          buttonText: "Download Schedule",
-          showButton: true,
-        };
+    case "DOWNLOAD":
+      return {
+        title: "Employees On Shift",
+        step: 3,
+        stepError: "finish",
+        buttonText: "Download Schedule",
+        showButton: true,
+      };
     case "REJECTED":
       return {
         title: "Employees On Shift",

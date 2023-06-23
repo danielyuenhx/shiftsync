@@ -208,7 +208,7 @@ const ShiftCard = (props: any) => {
             </div>
 
             <Typography className="tw-font-bold">
-              Getting most efficient and fair schedule for employees!
+              Getting the most efficient and fair schedule for employees!
             </Typography>
           </div>
         ) : (
