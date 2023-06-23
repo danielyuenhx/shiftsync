@@ -37,6 +37,7 @@ const notificationRender = (type: Type, api: any) => {
         description:
           "A cancelled shift has been replaced by another employee!",
         placement: "bottomRight",
+        duration: 0
       });
     default:
       return null;
